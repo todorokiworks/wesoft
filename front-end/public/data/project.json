@@ -1,0 +1,178 @@
+[
+  {
+    "title": "適格請求書発行パッケージ開発",
+    "description": "適格請求書発行パッケージ開発",
+    "imgUrl": "/image/project/invoice.jpg",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "Java, JavaScript"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": "SpringBoot, Oracle Cloud, PDFBox, Bootstrap, JQuery"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "30人月"
+      }
+    ]
+  },
+  {
+    "title": "人材開発パッケージ開発",
+    "description": "人材開発パッケージ開発",
+    "imgUrl": "/image/project/human_resources.jpg",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "Java, JavaScript"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": "SpringBoot, AWS, HighCharts, Bootstrap"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "60人月"
+      }
+    ]
+  },
+  {
+    "title": "給与計算パッケージ",
+    "description": "給与計算パッケージ",
+    "imgUrl": "/image/project/payroll.jpg",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "Java, JavaScript"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": "SpringBoot, AWS, JasperReport"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "100人月"
+      }
+    ]
+  },
+  {
+    "title": "お仕事検索サイト",
+    "description": "お仕事検索サイト",
+    "imgUrl": "/image/project/search_job.jpg",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "Java, JavaScript"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": "SpringBoot, Bootstrap"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "20人月"
+      }
+    ]
+  },
+  {
+    "title": "動物病院受付・診察・会計パッケージ",
+    "description": "動物病院受付・診察・会計パッケージ",
+    "imgUrl": "/image/project/animal_hospital.jpg",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "Kotlin"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": "Grpc, SpringBoot, AWS, Angular"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "50人月"
+      }
+    ]
+  },
+  {
+    "title": "会計パッケージアドオン",
+    "description": "会計パッケージアドオン",
+    "imgUrl": "/image/project/accounting.jpg",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "VB.Net"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": ".Net Framework"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "50人月"
+      }
+    ]
+  },
+  {
+    "title": "大手石油会社販売システム",
+    "description": "大手石油会社販売システム",
+    "imgUrl": "/image/project/oil.jpg",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "Java"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": "WebPerformer, SpringBoot, ImageWare"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "30人月"
+      }
+    ]
+  },
+  {
+    "title": "クラウドサービス課金システム",
+    "description": "クラウドサービス課金システム",
+    "imgUrl": "/image/project/cloud.png",
+    "subItems": [
+      {
+        "title": "【 言語 】",
+        "type": "text",
+        "description": "C#"
+      },
+      {
+        "title": "【 技術 】",
+        "type": "text",
+        "description": ".Net Core, Dynamics 365, Azure"
+      },
+      {
+        "title": "【 規模 】",
+        "type": "text",
+        "description": "30人月"
+      }
+    ]
+  }
+]

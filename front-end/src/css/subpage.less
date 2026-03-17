@@ -1,0 +1,229 @@
+.subpage {
+  padding: 90px 0 30px 0;
+  background-color: #fff;
+  overflow: hidden;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.subpage .main {
+  width: 800px;
+  padding: 10px;
+}
+
+.subpage .project-card {
+  width: 390px;
+  cursor: pointer;
+}
+
+.subpage .project-card .img {
+  width: 389px;
+  cursor: pointer;
+}
+
+.subpage .main-card {
+  color: #333;
+  border: 1px solid #777;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 90vw;
+}
+.subpage .recruit-card {
+  width: 60vw;
+  white-space: pre-wrap;
+  font-size: 1em;
+  font-family: CustomFont;
+  color: rgb(51, 51, 51);
+}
+
+.subpage .message-main {
+  width: 80vw;
+  display: flex;
+  margin-bottom: 100px;
+}
+
+.subpage .message-content {
+  width: 55%;
+
+  text-indent: 20px;
+  margin-right: 20px;
+  font-size: 1.2em;
+  font-family: CustomFont;
+}
+
+.subpage .message-imgdiv {
+  width: 45%;
+}
+.subpage .message-main .message-image {
+  width: 100%;
+}
+.subpage .google-map {
+  border: 0;
+  width: 80vw;
+  height: 450px;
+}
+
+.subpage .ant-descriptions .ant-descriptions-item-label {
+  font-size: 1.5em;
+  font-family: CustomFont;
+}
+
+.subpage .ant-descriptions .ant-descriptions-item-content {
+  font-size: 1.5em;
+  font-family: CustomFont;
+}
+
+.subpage .descriptions-table {
+  width: 80vw;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.subpage .company-about {
+  font-size: 1.2em;
+  width: 80vw;
+}
+.subpage .scientific-career-main {
+  width: 60vw;
+}
+.subpage .news-list {
+  width: 60vw;
+}
+
+.subpage .news-list .news-card {
+  width: 100%;
+}
+
+.subpage .news-list .news-card .news-text-main {
+  display: flex;
+  font-size: 1em;
+  position: relative;
+  display: block;
+}
+.subpage .news-list .news-card .news-date {
+  text-align: left;
+  margin-left: 1em;
+}
+
+.subpage .news-list .news-card .news-date h2 {
+  margin-top: 18px;
+  margin-bottom: 2px;
+}
+
+.subpage .news-list .news-card .news-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.subpage .news-list .news-card .news-content {
+  text-align: left;
+  max-width: 600px;
+}
+
+.subpage .news-list .news-card .news-summary {
+  font-size: 1.4em;
+  font-family: CustomFont;
+  width: 98%;
+  padding: 0 4px 0 4px;
+}
+.subpage .news-list .news-card .news-content h2 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.subpage .inquiry-form {
+  width: 800px;
+}
+
+.subpage .inquiry-form .recaptcha {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.model-main {
+  width: 50vw;
+}
+@media screen and (max-width: @max-width) {
+  .subpage .main {
+    width: 95vw;
+    padding: 10px;
+  }
+
+  .subpage .message-main {
+    width: 95vw;
+
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .subpage .message-content {
+    width: 90vw;
+    margin-right: 0;
+    font-size: 1em;
+  }
+  .subpage .google-map {
+    border: 0;
+    width: 90vw;
+    height: 300px;
+  }
+  .subpage .message-main .message-image {
+    width: 80vw;
+  }
+
+  .subpage .message-imgdiv {
+    width: 80vw;
+  }
+  .subpage .descriptions-table {
+    width: 90vw;
+  }
+
+  .subpage .ant-descriptions .ant-descriptions-item-label {
+    font-size: 1em;
+  }
+
+  .subpage .ant-descriptions .ant-descriptions-item-content {
+    font-size: 1em;
+  }
+  .subpage .company-about {
+    font-size: 1em;
+    width: 90vw;
+  }
+  .subpage .scientific-career-main {
+    width: 90vw;
+  }
+  .subpage .recruit-card {
+    width: 90vw;
+  }
+  .subpage .news-list {
+    width: 90vw;
+  }
+  .subpage .news-list .news-card .news-date {
+    margin-left: 1em;
+    position: relative;
+    font-size: 0.7em;
+  }
+  .subpage .news-list .news-card .news-title {
+    font-size: 0.8em;
+  }
+  .subpage .news-list .news-card .news-summary {
+    font-size: 1em;
+  }
+
+  .subpage .news-list .news-card .news-text-main {
+    display: block;
+    font-size: 1em;
+    position: relative;
+  }
+  .subpage .news-list .news-card .news-content {
+    text-align: left;
+    max-width: 90%;
+  }
+  .subpage .inquiry-form {
+    width: 90vw;
+  }
+  .model-main {
+    width: 90vw;
+  }
+}

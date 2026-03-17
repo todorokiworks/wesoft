@@ -1,0 +1,58 @@
+@font-face {
+  font-family: "CustomFont";
+  src: url("../assert/font/NotoSansJP-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "CustomFont", sans-serif;
+  font-size: large;
+  color: #444;
+}
+
+.header {
+  display: flex;
+  width: 98vw;
+  position: fixed;
+  background-color: #fff;
+  padding-left: 1em;
+  padding-right: 1em;
+  z-index: 100;
+}
+
+.header .logo {
+  width: 250px;
+  height: 78px;
+  cursor: pointer;
+  background-image: url("../../public/image/wesoft-home.png");
+  background-size: 240px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.ant-menu-title-content {
+  color: #cc3300;
+  font-family: "CustomFont", sans-serif;
+  font-size: 1.5em;
+}
+
+.custom-menu .ant-menu-item {
+  margin-bottom: 14px;
+}
+
+@media screen and (max-width: @max-width) {
+  body {
+    font-size: medium;
+  }
+  .ant-menu-title-content {
+    font-size: 1em;
+  }
+  .header .logo {
+    width: 78px;
+    height: 78px;
+    cursor: pointer;
+    background-image: url("../../public/image/cropped-wesoft_270x270.png");
+    background-size: cover;
+  }
+}

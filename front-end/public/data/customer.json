@@ -1,0 +1,27 @@
+[
+  {
+    "title": "bizup",
+    "link": "https://www.bizup.co.jp/",
+    "image": "/image/customer/image001.png"
+  },
+  {
+    "title": "yokogawa",
+    "link": "https://www.yokogawa.co.jp/",
+    "image": "/image/customer/image002.png"
+  },
+  {
+    "title": "paypay",
+    "link": "https://about.paypay.ne.jp/",
+    "image": "/image/customer/image003.png"
+  },
+  {
+    "title": "jcbc",
+    "link": "https://www.jcbc.co.jp/",
+    "image": "/image/customer/image004.png"
+  },
+  {
+    "title": "isson",
+    "link": "https://google.com",
+    "image": "/image/customer/image005.png"
+  }
+]

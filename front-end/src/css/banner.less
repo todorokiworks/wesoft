@@ -1,0 +1,100 @@
+@primary-color: #1890ff;
+
+.banner-wrapper {
+  width: 100%;
+  overflow: hidden;
+  background: url("../../public/image/top1.jpeg") no-repeat center / cover;
+  height: 100vh;
+}
+
+.banner-text-wrapper-1 {
+  position: absolute;
+  top: 25%;
+  left: 15%;
+  color: #fff;
+  font-size: 1.8em;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.banner-text-wrapper-2 {
+  position: absolute;
+  top: 65%;
+  left: 65%;
+  color: #fff;
+  font-size: 1.4em;
+  font-style: "italic";
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.banner-text-wrapper-3 {
+  position: absolute;
+  width: 98vw;
+  top: 85%;
+  color: #555;
+  text-align: center;
+}
+.banner-wrapper .banner-wrapper-content {
+  padding: 0 10px 0 10px;
+  width: 400px;
+  text-align: center;
+}
+.banner-wrapper .start-button {
+  @start-button-color: tint(#fff, 20%);
+  text-align: center;
+
+  > a {
+    display: inline-block;
+    height: 40px;
+    padding: 0 16px;
+    font-weight: 500;
+    border: 1px solid @start-button-color;
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    background: #cc3300;
+    transition: all 0.45s;
+    text-align: center;
+    line-height: 36px;
+    margin-left: 8px;
+    width: 200px;
+    &:hover {
+      color: #cc3300;
+      background: @start-button-color;
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: @max-width) {
+  .banner-text-wrapper-1 {
+    padding: 0;
+    top: 25%;
+    width: 100vw;
+    left: 0;
+  }
+
+  .banner-text-wrapper-2 {
+    padding: 0;
+    top: 55%;
+    width: 100vw;
+    left: 0;
+  }
+  .banner-text-wrapper-3 {
+    padding: 0;
+    top: 85%;
+    width: 100vw;
+    left: 0;
+  }
+  .banner-wrapper .banner-wrapper-content {
+    padding: 0;
+    width: 98vw;
+    text-align: center;
+  }
+}
