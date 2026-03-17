@@ -18,4 +18,21 @@ npm run build
 cd front-end/data/
 # edit the xx.json file to edit the web
 ```
+
+## ビルド・デプロイ
+
+### テスト環境（GitHub Pages）
+- `main` ブランチへの push で自動デプロイ
+- URL: https://todorokiworks.github.io/wesoft/
+
+### 本番環境（納品用）
+ルートパスで動作する形でビルドする場合：
+
+``` shell
+cd front-end
+npm run build:production
+```
+
+`build/` フォルダをクライアントのサーバーにデプロイしてください。
+
 # wesoft

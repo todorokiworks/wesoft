@@ -1,6 +1,7 @@
 
 import '../css/subpage.less'
 import React, { useEffect, useState } from 'react';
+import { getDataBaseUrl } from '../config';
 import { Carousel, Divider, Space } from "antd";
 import SkeletonView from '../common/SkeletonView';
 import * as BusinessEntity from '../entities/Business';
@@ -13,7 +14,7 @@ const Business: React.FC = () => {
 
     useEffect(() => {
         const timestamp = new Date().getTime();
-        fetch(`/data/business.json?t=${timestamp}`)
+        fetch(`${getDataBaseUrl()}/data/business.json?t=${timestamp}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

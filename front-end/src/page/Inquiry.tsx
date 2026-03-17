@@ -1,5 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState, useRef } from "react";
+import { getDataBaseUrl } from "../config";
 import {
   Button,
   Carousel,
@@ -114,7 +115,7 @@ const Inquiry: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`/data/business.json?t=${timestamp}`)
+    fetch(`${getDataBaseUrl()}/data/business.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

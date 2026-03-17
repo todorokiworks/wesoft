@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/footer.less";
+import { getDataBaseUrl } from "../config";
 import { Button, Modal } from "antd";
 import { Link } from "react-router-dom";
 import PrivacyNotice from "../page/PrivacyNotice";
@@ -29,7 +30,7 @@ const AppFooter: React.FC = () => {
         <div className="company">
           <div className="company-icon">
             <img
-              src="/image/cropped-wesoft_270x270.png"
+              src={`${getDataBaseUrl()}/image/cropped-wesoft_270x270.png`}
               style={{ width: "50px", height: "50px" }}
               alt="ウィソフト株式会社"
             />

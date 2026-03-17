@@ -4,10 +4,11 @@ import AppHeader from "./common/Header";
 import AppContent from "./common/Content";
 import AppFooter from "./common/Footer";
 import ScrollToTop from "./common/ScrollToTop";
+import { getRouterBasename } from "./config";
 
 const App: React.FC = () => {
   return (
-    <Router basename="/wesoft">
+    <Router basename={getRouterBasename()}>
       <ScrollToTop />
       <MainLayout />
     </Router>

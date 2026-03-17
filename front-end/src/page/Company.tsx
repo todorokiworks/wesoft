@@ -1,5 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
+import { getDataBaseUrl } from "../config";
 import { Descriptions, DescriptionsProps, Space } from "antd";
 import { useLocation } from "react-router-dom";
 import * as CustomerEntity from "../entities/Customer";
@@ -26,7 +27,7 @@ const Company: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`/data/customer.json?t=${timestamp}`)
+    fetch(`${getDataBaseUrl()}/data/customer.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -182,7 +183,7 @@ const Company: React.FC = () => {
               </div>
             </div>
             <div className="message-imgdiv">
-              <img src="/image/president.jpg" className="message-image" alt="代表取締役社長" />
+              <img src={`${getDataBaseUrl()}/image/president.jpg`} className="message-image" alt="代表取締役社長" />
             </div>
           </div>
           <h2 id="t2">会社概要</h2>

@@ -1,5 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
+import { getDataBaseUrl } from "../config";
 import { Carousel, Space } from "antd";
 import SkeletonView from "../common/SkeletonView";
 
@@ -14,7 +15,7 @@ const ScientificCareer: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`/data/scientific_career.json?t=${timestamp}`)
+    fetch(`${getDataBaseUrl()}/data/scientific_career.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

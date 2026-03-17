@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/home.less";
+import { getDataBaseUrl } from "../config";
 import TweenOne from "rc-tween-one";
 import QueueAnim from "rc-queue-anim";
 import { Button, Table } from "antd";
@@ -17,7 +18,7 @@ const SubHome0: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`/data/news.json?t=${timestamp}`)
+    fetch(`${getDataBaseUrl()}/data/news.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

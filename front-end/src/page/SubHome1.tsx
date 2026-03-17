@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/home.less";
+import { getDataBaseUrl } from "../config";
 import TweenOne from "rc-tween-one";
 import QueueAnim from "rc-queue-anim";
 import { Table } from "antd";
@@ -14,7 +15,7 @@ const SubHome1: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/data/news.json")
+    fetch(`${getDataBaseUrl()}/data/news.json`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

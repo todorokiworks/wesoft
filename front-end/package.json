@@ -32,6 +32,8 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "build:test": "craco build",
+    "build:production": "node scripts/build-production.js",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

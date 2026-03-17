@@ -1,5 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
+import { getDataBaseUrl } from "../config";
 import { Card, Space } from "antd";
 import SkeletonView from "../common/SkeletonView";
 import * as JobEntity from "../entities/Jobs";
@@ -11,7 +12,7 @@ const Recruit: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`/data/recruit.json?t=${timestamp}`)
+    fetch(`${getDataBaseUrl()}/data/recruit.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
