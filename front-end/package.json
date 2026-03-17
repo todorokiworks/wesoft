@@ -32,6 +32,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "postbuild": "node scripts/copy-404.js",
     "build:test": "craco build",
     "build:production": "node scripts/build-production.js",
     "test": "craco test",
