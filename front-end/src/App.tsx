@@ -7,7 +7,7 @@ import ScrollToTop from "./common/ScrollToTop";
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <Router basename="/wesoft">
       <ScrollToTop />
       <MainLayout />
     </Router>
