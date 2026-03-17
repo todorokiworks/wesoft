@@ -24,9 +24,8 @@ const Company: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const timestamp = new Date().getTime();
-
   useEffect(() => {
+    const timestamp = new Date().getTime();
     fetch(`/data/customer.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
@@ -145,14 +144,6 @@ const Company: React.FC = () => {
     },
   ];
 
-  const contentStyle: React.CSSProperties = {
-    margin: 0,
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
-  };
   return (
     <>
       <div className="subpage">
@@ -191,7 +182,7 @@ const Company: React.FC = () => {
               </div>
             </div>
             <div className="message-imgdiv">
-              <img src="/image/president.jpg" className="message-image" />
+              <img src="/image/president.jpg" className="message-image" alt="代表取締役社長" />
             </div>
           </div>
           <h2 id="t2">会社概要</h2>

@@ -30,8 +30,6 @@ const Inquiry: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const timestamp = new Date().getTime();
-
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [iscaptchaChecked, setIscaptchaChecked] = useState(false);
@@ -115,6 +113,7 @@ const Inquiry: React.FC = () => {
   };
 
   useEffect(() => {
+    const timestamp = new Date().getTime();
     fetch(`/data/business.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {

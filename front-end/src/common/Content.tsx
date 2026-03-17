@@ -8,7 +8,6 @@ import Development from "../page/Development";
 import Business from "../page/Business";
 import Company from "../page/Company";
 import Inquiry from "../page/Inquiry";
-import ScrollToTop from "./ScrollToTop";
 
 const AppContent: React.FC = () => {
   return (

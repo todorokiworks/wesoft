@@ -1,6 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
-import { Card, Carousel, Space } from "antd";
+import { Carousel, Space } from "antd";
 import SkeletonView from "../common/SkeletonView";
 
 import * as ScientificCareerEntity from "../entities/ScientificCareers";
@@ -12,9 +12,8 @@ const ScientificCareer: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const timestamp = new Date().getTime();
-
   useEffect(() => {
+    const timestamp = new Date().getTime();
     fetch(`/data/scientific_career.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {

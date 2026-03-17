@@ -11,10 +11,8 @@ const Business: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    const timestamp = new Date().getTime();
-
-
     useEffect(() => {
+        const timestamp = new Date().getTime();
         fetch(`/data/business.json?t=${timestamp}`)
             .then(response => {
                 if (!response.ok) {

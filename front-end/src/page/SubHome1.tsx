@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../css/home.less";
 import TweenOne from "rc-tween-one";
 import QueueAnim from "rc-queue-anim";
-import { Button, Table, Timeline, TimelineItemProps } from "antd";
+import { Table } from "antd";
 import RcScrollOverPack from "rc-scroll-anim/lib/ScrollOverPack";
 import SkeletonView from "../common/SkeletonView";
 import * as NewsEntity from "../entities/News";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 import Column from "antd/es/table/Column";
-import { useNavigate } from "react-router-dom";
-
 const SubHome1: React.FC = () => {
   const [news, setEvents] = useState<NewsEntity.News[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -33,13 +31,6 @@ const SubHome1: React.FC = () => {
         setLoading(false);
       });
   }, []);
-
-  const navigate = useNavigate();
-
-  const handleLinkTo = () => {
-    navigate("/news");
-    window.scrollTo(0, 0);
-  };
 
   if (loading) {
     return <SkeletonView />;

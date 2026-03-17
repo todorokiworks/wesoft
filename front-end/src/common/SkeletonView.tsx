@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, Space } from 'antd';
+import { Skeleton } from 'antd';
 
 const SkeletonView: React.FC = () => {
     return (

@@ -10,9 +10,8 @@ const News: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const timestamp = new Date().getTime();
-
   useEffect(() => {
+    const timestamp = new Date().getTime();
     fetch(`/data/news.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
@@ -103,7 +102,7 @@ const News: React.FC = () => {
                               textAlign: "center",
                             }}
                           >
-                            <img style={{ width: "80%" }} src={image} />
+                            <img style={{ width: "80%" }} src={image} alt="" />
                           </div>
                         ))
                       : null}

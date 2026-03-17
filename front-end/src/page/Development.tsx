@@ -11,9 +11,8 @@ const Development: React.FC = () => {
   const [projectOpenFlag, setProjectOpenFlag] = useState<boolean>(false);
   const [project, setProject] = useState<ProjectEntity.Project | null>(null);
 
-  const timestamp = new Date().getTime();
-
   useEffect(() => {
+    const timestamp = new Date().getTime();
     fetch(`/data/project.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
@@ -70,7 +69,7 @@ const Development: React.FC = () => {
               <Card
                 className="project-card main-card"
                 onClick={() => showProject(item)}
-                cover={<img src={item.imgUrl} style={{ height: "200px" }} />}
+                cover={<img src={item.imgUrl} style={{ height: "200px" }} alt={item.title} />}
               >
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>

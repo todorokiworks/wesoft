@@ -8,15 +8,15 @@ import SkeletonView from "../common/SkeletonView";
 import * as NewsEntity from "../entities/News";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 import Column from "antd/es/table/Column";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SubHome0: React.FC = () => {
   const [news, setEvents] = useState<NewsEntity.News[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const timestamp = new Date().getTime();
 
   useEffect(() => {
+    const timestamp = new Date().getTime();
     fetch(`/data/news.json?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {

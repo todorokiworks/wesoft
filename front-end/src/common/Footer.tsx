@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/footer.less";
-import { Button, Flex, Modal } from "antd";
+import { Button, Modal } from "antd";
 import { Link } from "react-router-dom";
 import PrivacyNotice from "../page/PrivacyNotice";
 
