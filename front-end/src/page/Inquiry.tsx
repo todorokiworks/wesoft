@@ -1,6 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState, useRef } from "react";
-import { getDataBaseUrl } from "../config";
+import { getDataBaseUrl, getImageUrl } from "../config";
 import {
   Button,
   Carousel,
@@ -152,7 +152,7 @@ const Inquiry: React.FC = () => {
             backgroundPosition: "center",
             justifyContent: "center",
             padding: "4px",
-            backgroundImage: `url(${item.coverUrl})`,
+            backgroundImage: `url(${getImageUrl(item.coverUrl)})`,
           };
           return (
             item.coverUrl && (

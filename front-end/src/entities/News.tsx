@@ -1,5 +1,6 @@
 import { Card, TimelineItemProps } from "antd";
 import Meta from "antd/es/card/Meta";
+import { getImageUrl } from "../config";
 
 export interface News {
   title: string;
@@ -47,7 +48,7 @@ export function convertToTimeLine(news: News): TimelineItemProps {
                   <>
                     {content.images
                       ? content.images.map((image) => (
-                          <img src={image} style={{ marginBottom: "2px" }} />
+                          <img key={image} src={getImageUrl(image)} style={{ marginBottom: "2px" }} alt="" />
                         ))
                       : null}
                   </>

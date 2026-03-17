@@ -1,6 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
-import { getDataBaseUrl } from "../config";
+import { getDataBaseUrl, getImageUrl } from "../config";
 import SkeletonView from "../common/SkeletonView";
 import * as NewsEntity from "../entities/News";
 import { Card, List } from "antd";
@@ -94,16 +94,17 @@ const News: React.FC = () => {
                         <div className="news-summary">{item.summary}</div>
                       }
                     />
-                    {item.images
+{item.images
                       ? item.images.map((image) => (
-                        <div
-                          style={{
-                            width: "100%",
-                            marginTop: "20px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <img style={{ width: "80%" }} src={image} alt="" />
+                          <div
+                            key={image}
+                            style={{
+                              width: "100%",
+                              marginTop: "20px",
+                              textAlign: "center",
+                            }}
+                          >
+                            <img style={{ width: "80%" }} src={getImageUrl(image)} alt="" />
                         </div>
                       ))
                       : null}

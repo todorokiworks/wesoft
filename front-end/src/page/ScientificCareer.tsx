@@ -1,6 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
-import { getDataBaseUrl } from "../config";
+import { getDataBaseUrl, getImageUrl } from "../config";
 import { Carousel, Space } from "antd";
 import SkeletonView from "../common/SkeletonView";
 
@@ -52,7 +52,7 @@ const ScientificCareer: React.FC = () => {
             padding: "4px",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
-            backgroundImage: `url(${item.coverUrl})`,
+            backgroundImage: `url(${getImageUrl(item.coverUrl)})`,
           };
           return (
             item.coverUrl && (

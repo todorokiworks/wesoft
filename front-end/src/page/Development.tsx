@@ -1,6 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
-import { getDataBaseUrl } from "../config";
+import { getDataBaseUrl, getImageUrl } from "../config";
 import { Card, Drawer, Space } from "antd";
 import SkeletonView from "../common/SkeletonView";
 import * as ProjectEntity from "../entities/Projects";
@@ -70,7 +70,7 @@ const Development: React.FC = () => {
               <Card
                 className="project-card main-card"
                 onClick={() => showProject(item)}
-                cover={<img src={item.imgUrl} style={{ height: "200px" }} alt={item.title} />}
+                cover={<img src={getImageUrl(item.imgUrl)} style={{ height: "200px" }} alt={item.title} />}
               >
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>

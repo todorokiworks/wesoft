@@ -24,3 +24,15 @@ export const getDataBaseUrl = (): string => {
 
 /** React Routerのbasename */
 export const getRouterBasename = (): string => getDataBaseUrl();
+
+/**
+ * JSONデータ等の画像パスにベースパスを付与
+ * /image/xxx のような相対パスを /wesoft/image/xxx に変換
+ */
+export const getImageUrl = (url: string | undefined): string => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  const base = getDataBaseUrl();
+  if (!base) return url;
+  return url.startsWith("/") ? `${base}${url}` : `${base}/${url}`;
+};

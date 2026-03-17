@@ -1,6 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
-import { getDataBaseUrl } from "../config";
+import { getDataBaseUrl, getImageUrl } from "../config";
 import { Descriptions, DescriptionsProps, Space } from "antd";
 import { useLocation } from "react-router-dom";
 import * as CustomerEntity from "../entities/Customer";
@@ -246,7 +246,7 @@ const Company: React.FC = () => {
               <>
                 <a href={customer.link}>
                   <img
-                    src={customer.image}
+                    src={getImageUrl(customer.image)}
                     alt={customer.title}
                     title={customer.title}
                     style={{ width: "240px" }}
