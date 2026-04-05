@@ -1,6 +1,5 @@
 import React from "react";
 import QueueAnim from "rc-queue-anim";
-import { Link } from "react-router-dom";
 import { getDataBaseUrl } from "../config";
 import "../css/banner.less";
 

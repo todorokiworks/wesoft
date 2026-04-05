@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu } from "antd";
 import "../css/header.less";
-import { MailOutlined } from "@ant-design/icons";
 
 const AppHeader: React.FC = () => {
   const location = useLocation();
