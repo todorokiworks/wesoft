@@ -8,7 +8,15 @@ cd front-end
 
 npm install
 
+# ルート（/）で動かす。npm start のみ。http://localhost:3000/
+
 npm start
+
+# GitHub Pages と同じベースパスで確認（/wesoft、fetch・画像・ルーティング一致）
+
+npm run start:ghpages
+# ブラウザは http://localhost:3000/wesoft/ を開く（トップは末尾スラッシュ付きが無難）
+```
 
 
 # how to build the web site

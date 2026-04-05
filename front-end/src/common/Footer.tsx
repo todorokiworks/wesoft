@@ -6,10 +6,7 @@ import { Link } from "react-router-dom";
 import PrivacyNotice from "../page/PrivacyNotice";
 
 const AppFooter: React.FC = () => {
-  let currentYear = new Date().getFullYear();
-  let mailto = "ws.jj@wesoft.co.jp";
-  let telephone = "044-280-6828";
-
+  const currentYear = new Date().getFullYear();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleOk = () => {
@@ -25,67 +22,40 @@ const AppFooter: React.FC = () => {
   };
 
   return (
-    <div className="footer">
-      <div className="top">
-        <div className="company">
-          <div className="company-icon">
+    <footer className="footer">
+      <div className="footer__inner">
+        <div className="footer__row">
+          <div className="footer__logo">
             <img
-              src={`${getDataBaseUrl()}/image/cropped-wesoft_270x270.png`}
-              style={{ width: "50px", height: "50px" }}
+              src={`${getDataBaseUrl()}/image/icon_logo-white.png`}
               alt="ウィソフト株式会社"
             />
           </div>
-          <div className="company-text">
-            <span style={{ fontSize: "16px" }}>ウィソフト株式会社</span>
-            <span>WeSoft Co.,Ltd. </span>
-          </div>
-        </div>
-        <div className="menu">
-          <div className="items">
-            <Link to="/">
-              <div className="item">ホームページ</div>
-            </Link>
-            <Link to="/company#t1">
-              <div className="item">企業情報</div>
-            </Link>
-            <Link to="/business">
-              <div className="item">事業内容</div>
-            </Link>
-            <Link to="/development">
-              <div className="item">開発実績</div>
-            </Link>
-            <Link to="/scientific_career">
-              <div className="item">研究事業</div>
-            </Link>
-            <Link to="/recruit">
-              <div className="item">採用情報</div>
-            </Link>
-            <Link to="/news">
-              <div className="item">ニュース</div>
-            </Link>
-            <Link to="/inquiry">
-              <div className="item">問い合わせ</div>
-            </Link>
-          </div>
-        </div>
-        <div className="contact">
-          <span>受付時間: 平日 AM 10:00 〜 PM 7:00</span>
-          <span>※緊急時：いつでもご遠慮なく連絡可能</span>
-          <span>{telephone}</span>
-          <span>
-            <a href={"mailto://" + mailto}>Email: {mailto}</a>
-          </span>
-        </div>
-      </div>
 
-      <div className="bottom">
-        <span onClick={showPrivacyNotice} className="privacy-notice">
-          プライバシーポリシー&nbsp;&nbsp;
-        </span>
+          <div className="footer__contact">
+            <p className="footer__postal">〒210-0022</p>
+            <p className="footer__address">
+              神奈川県川崎市川崎区池田2丁目6番7号
+            </p>
+            <p className="footer__tel">TEL.044-280-6828</p>
+          </div>
 
-        <span style={{ color: "#eee" }}>
-          © {currentYear}年 ウィソフト株式会社 Co.,Ltd. All Rights Reserved.
-        </span>
+          <Link to="/inquiry" className="footer__inquiry">
+            お問い合わせ
+          </Link>
+
+          <button
+            type="button"
+            className="footer__privacy"
+            onClick={showPrivacyNotice}
+          >
+            プライバシーポリシー
+          </button>
+        </div>
+
+        <p className="footer__copyright">
+          © {currentYear} ウィソフト株式会社 Co.,Ltd.無断転載を禁じます。
+        </p>
       </div>
 
       <Modal
@@ -129,7 +99,7 @@ const AppFooter: React.FC = () => {
           <PrivacyNotice />
         </div>
       </Modal>
-    </div>
+    </footer>
   );
 };
 

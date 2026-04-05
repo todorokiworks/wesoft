@@ -28,7 +28,7 @@ export function convertToMiniTimeLine(news: News): TimelineItemProps {
     ),
     style: {
       textAlign: "left",
-      fontSize: "1.5em",
+      fontSize: "24px",
       whiteSpace: "nowrap",
     },
   };

@@ -21,13 +21,13 @@ const AppHeader: React.FC = () => {
         selectedKeys={[selectedKey]}
       >
         <Menu.Item key="/">
-          <Link to="/">ホームページ</Link>
+          <Link to="/">TOP</Link>
         </Menu.Item>
         <Menu.Item key="/company" title="企業情報">
-          <Link to="/company">企業情報</Link>
+          <Link to="/company">会社情報</Link>
         </Menu.Item>
-        <Menu.Item key="/business">
-          <Link to="/business">事業内容</Link>
+        <Menu.Item key="/service">
+          <Link to="/service">サービス</Link>
         </Menu.Item>
 
         <Menu.Item key="/development">
@@ -36,19 +36,22 @@ const AppHeader: React.FC = () => {
         <Menu.Item key="/scientific_career">
           <Link to="/scientific_career">研究事業</Link>
         </Menu.Item>
-
+        <Menu.Item key="/faq">
+          <Link to="/faq">FAQ</Link>
+        </Menu.Item>
         <Menu.Item key="/recruit">
           <Link to="/recruit">採用情報</Link>
         </Menu.Item>
 
         <Menu.Item key="/news">
-          <Link to="/news">ニュース</Link>
+          <Link to="/news">NEWS</Link>
+        </Menu.Item>
+        <Menu.Item key="/column">
+          <Link to="/column">コラム</Link>
         </Menu.Item>
         <Menu.Item
           key="/inquiry"
-          icon={
-            <MailOutlined style={{ color: "#CC3300", fontSize: "1.4em" }} />
-          }
+
         >
           <Link to="/inquiry">問い合わせ</Link>
         </Menu.Item>

@@ -2,6 +2,7 @@ import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
 import { getDataBaseUrl, getImageUrl } from "../config";
 import SkeletonView from "../common/SkeletonView";
+import SubpageTitle from "../common/SubpageTitle";
 import * as NewsEntity from "../entities/News";
 import { Card, List } from "antd";
 import Meta from "antd/es/card/Meta";
@@ -42,8 +43,15 @@ const News: React.FC = () => {
   return (
     <div
       className="subpage"
-      style={{ display: "flex", justifyContent: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+      }}
     >
+      <SubpageTitle titleJa="ニュース" titleEn="News" />
+      <section className="subpage-section" aria-label="ニュース一覧">
       <List
         itemLayout="vertical"
         size="large"
@@ -69,7 +77,7 @@ const News: React.FC = () => {
                       style={{
                         width: "100%",
                         textAlign: "center",
-                        fontSize: "1.0em",
+                        fontSize: "16px",
                       }}
                       title={
                         <div className="news-text-main">
@@ -115,6 +123,7 @@ const News: React.FC = () => {
           </List.Item>
         )}
       />
+      </section>
     </div>
   );
 };

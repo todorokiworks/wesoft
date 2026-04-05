@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { getDataBaseUrl, getImageUrl } from '../config';
 import { Carousel, Divider, Space } from "antd";
 import SkeletonView from '../common/SkeletonView';
+import SubpageTitle from '../common/SubpageTitle';
 import * as BusinessEntity from '../entities/Business';
 
 
@@ -43,6 +44,8 @@ const Business: React.FC = () => {
 
     return (
         <div className='subpage business'>
+            <SubpageTitle titleJa="事業内容" titleEn="Business" />
+            <section className="subpage-section" aria-label="事業紹介スライダー">
             <Carousel autoplay arrows >
                 {items.map(item => {
                     const dynamicContentStyle = {
@@ -67,6 +70,8 @@ const Business: React.FC = () => {
                     );
                 })}
             </Carousel>
+            </section>
+            <section className="subpage-section" aria-label="事業内容詳細">
             <Space direction="vertical" style={{ width: '100%' }} align="center" wrap>
                 <Space direction="vertical" className='main' wrap>
                     {items.map(item => (
@@ -97,6 +102,7 @@ const Business: React.FC = () => {
                     ))}
                 </Space>
             </Space>
+            </section>
         </div>
     );
 };

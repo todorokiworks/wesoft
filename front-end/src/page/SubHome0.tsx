@@ -53,7 +53,7 @@ const SubHome0: React.FC = () => {
   let lastFiveNews = news.filter((item) => item.type === 1).slice(-5);
 
   return (
-    <RcScrollOverPack id="top-news" className="homepage">
+    <RcScrollOverPack id="top-news" >
       <QueueAnim
         duration={450}
         type="left"
@@ -61,7 +61,8 @@ const SubHome0: React.FC = () => {
         key="title"
         leaveReverse
       >
-        <h2 key="h2">ニュース</h2>
+        <h2 key="h2" className="home-title-ja">新着情報</h2>
+        <p className="home-title-en" key="home-title-en">NEWS</p>
       </QueueAnim>
       <TweenOne
         key="content"
@@ -80,7 +81,7 @@ const SubHome0: React.FC = () => {
           className="home-table"
         >
           <ColumnGroup title="Name">
-            <Column dataIndex="title" key="title" />
+            <Column dataIndex="title" key="title" className="home-table-title" />
           </ColumnGroup>
 
           <ColumnGroup title="subTitle">
@@ -88,7 +89,7 @@ const SubHome0: React.FC = () => {
               render={(_: any, record: NewsEntity.News) => (
                 <div>
                   <span className="subTitle">{record.subTitle}</span>
-                  <br />
+
                   <span className="summary">{record.summary}</span>
                 </div>
               )}
@@ -102,11 +103,11 @@ const SubHome0: React.FC = () => {
         className="home-button"
         key="title"
         leaveReverse
-        style={{ marginBottom: "200px" }}
+
       >
         <Button
           type="primary"
-          style={{ backgroundColor: "#CC3300", borderColor: "#CC3300" }}
+          style={{ backgroundColor: "#a51f27", borderColor: "#a51f27", borderRadius: "0", width: "160px" }}
           size="large"
           onClick={handleLinkTo}
         >

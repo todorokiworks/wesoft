@@ -1,24 +1,19 @@
-@font-face {
-  font-family: "CustomFont";
-  src: url("../assert/font/NotoSansJP-Medium.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
-  font-family: "CustomFont", sans-serif;
-  font-size: large;
-  color: #444;
+  font-size: 18px;
+  color: #4e4e4e;
+  font-weight: 600;
 }
 
 .header {
   display: flex;
-  width: 98vw;
+  width: 100vw;
   position: fixed;
   background-color: #fff;
   padding-left: 1em;
   padding-right: 1em;
   z-index: 100;
+
+  @media screen and (max-width: @max-width) {}
 }
 
 .header .logo {
@@ -34,7 +29,7 @@ body {
 .ant-menu-title-content {
   color: #cc3300;
   font-family: "CustomFont", sans-serif;
-  font-size: 1.5em;
+  font-size: 16px;
 }
 
 .custom-menu .ant-menu-item {
@@ -43,11 +38,13 @@ body {
 
 @media screen and (max-width: @max-width) {
   body {
-    font-size: medium;
+    font-size: 16px;
   }
+
   .ant-menu-title-content {
-    font-size: 1em;
+    font-size: 16px;
   }
+
   .header .logo {
     width: 78px;
     height: 78px;

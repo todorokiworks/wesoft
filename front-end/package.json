@@ -31,6 +31,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "start:ghpages": "cross-env REACT_APP_BASE_PATH=/wesoft craco start",
     "build": "craco build",
     "postbuild": "node scripts/copy-404.js",
     "build:test": "craco build",
@@ -59,6 +60,7 @@
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@types/react-google-recaptcha": "^2.1.9"
+    "@types/react-google-recaptcha": "^2.1.9",
+    "cross-env": "^10.1.0"
   }
 }

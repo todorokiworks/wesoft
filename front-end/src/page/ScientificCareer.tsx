@@ -1,114 +1,106 @@
 import "../css/subpage.less";
-import React, { useEffect, useState } from "react";
-import { getDataBaseUrl, getImageUrl } from "../config";
-import { Carousel, Space } from "antd";
-import SkeletonView from "../common/SkeletonView";
+import React from "react";
+import { getImageUrl } from "../config";
+import SubpageTitle from "../common/SubpageTitle";
+import FaqStickyLink from "../common/FaqStickyLink";
 
-import * as ScientificCareerEntity from "../entities/ScientificCareers";
+const IEEE_PAPERS = [
+  {
+    title: "多層情報相互作用を用いた新しい分散重力検索アルゴリズム",
+    href: "https://doi.org/10.1109/ACCESS.2021.3136239",
+  },
+  {
+    title: "TDSD: 三重異性検索ダイナミクスに基づく新しい進化アルゴリズム",
+    href: "https://doi.org/10.1109/ACCESS.2020.2989029",
+  },
+];
 
 const ScientificCareer: React.FC = () => {
-  const [items, setEvents] = useState<
-    ScientificCareerEntity.ScientificCareer[]
-  >([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const timestamp = new Date().getTime();
-    fetch(`${getDataBaseUrl()}/data/scientific_career.json?t=${timestamp}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setEvents(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return <SkeletonView />;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
-    <div className="subpage">
-      <Carousel autoplay arrows>
-        {items.map((item) => {
-          const dynamicContentStyle = {
-            height: "450px",
-            width: "100vw",
-            justifyContent: "center",
-            padding: "4px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundImage: `url(${getImageUrl(item.coverUrl)})`,
-          };
-          return (
-            item.coverUrl && (
-              <>
-                <Space style={dynamicContentStyle} align="center">
-                  <Space
-                    direction="vertical"
-                    style={{
-                      backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      minWidth: "100px",
-                      padding: "10px",
-                      textAlign: "center",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <h3>{item.title}</h3>
-                    <p>{item.subTitle}</p>
-                  </Space>
-                </Space>
-              </>
-            )
-          );
-        })}
-      </Carousel>
-
-      <Space
-        direction="horizontal"
-        style={{
-          width: "100vw",
-          justifyContent: "center",
-          alignItems: "flex-start",
-        }}
-        align="center"
-        wrap
+    <div className="subpage subpage--scientific-career">
+      <SubpageTitle titleJa="研究事業" titleEn="Research" as="h1" />
+      <FaqStickyLink />
+      <section
+        className="subpage-section scientific-career scientific-career--dark"
+        aria-label="研究事業の概要"
       >
-        {items.map((item) => (
-          <div title={item.title} className="scientific-career-main">
-            {item.description && <p>{item.description}</p>}
+        <div className="scientific-career__inner">
+          <header className="scientific-career__hero">
+            <h2 className="scientific-career__hero-title">
+              <span
+                className="scientific-career__hero-bar"
+                aria-hidden
+              />
+              <span className="scientific-career__hero-title-text">
+                研究・技術基盤受託開発を支える、もう一つの実績
+              </span>
+            </h2>
+            <p className="scientific-career__lead">
+              ウィソフトでは、受託開発を主軸としながら、その品質と将来性を支える技術基盤として、研究活動にも継続して取り組んでいます。技術の理解と応用力を高めることで、日々の開発業務の土台を強化しています。
+            </p>
+          </header>
 
-            {item.contents &&
-              item.contents.map((content) => (
-                <div>
-                  {content.title && <h3>{content.title}</h3>}
-                  {content.description && <p>{content.description}</p>}
-                  {content.list && (
-                    <ul>
-                      {content.list.map((requirement) => (
-                        <li>{requirement}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
+          <div className="scientific-career__row">
+            <div className="scientific-career__col scientific-career__col--text">
+              <h3 className="scientific-career__subhead">
+                研究分野A（人工知能）研究
+              </h3>
+              <p className="scientific-career__body">
+                ディープラーニングを中心とした人工知能分野において、識別や予測精度の向上を目的とした研究を行っています。単一技術にとどまらず、複数の技術を組み合わせることで、将来的な実用化につながる可能性を見据えた研究を進めています。
+              </p>
+            </div>
+            <div className="scientific-career__col scientific-career__col--media">
+              <img
+                src={getImageUrl("/image/img_sc_ai.png")}
+                alt="WE Ai ロゴ（power by WeAI）"
+              />
+            </div>
           </div>
-        ))}
-      </Space>
+
+          <div className="scientific-career__publications">
+            <p className="scientific-career__publications-banner">
+              利用研究者がIEEE（技術専門機関）で発表した論文の例
+            </p>
+            <ul className="scientific-career__paper-list">
+              {IEEE_PAPERS.map((paper) => (
+                <li key={paper.href}>
+                  <span className="scientific-career__paper-title">
+                    {paper.title}
+                  </span>
+                  <a
+                    href={paper.href}
+                    className="scientific-career__paper-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {paper.href}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="scientific-career__row--joint">
+            <h3 className="scientific-career__subhead scientific-career__subhead--ruled">
+              共同研究実績（徳島大学）
+            </h3>
+            <div className="scientific-career__row scientific-career__row--joint">
+              <div className="scientific-career__col scientific-career__col--text">
+
+                <p className="scientific-career__body">
+                  徳島大学との共同研究として、AIを活用した洋上風力発電向け風車レイアウト最適化システムの研究開発に参画。社会インフラ分野における高度な最適化技術の実装を通じ、実用化を見据えた技術基盤の強化に取り組んでいます。
+                </p>
+              </div>
+              <div className="scientific-career__col scientific-career__col--media">
+                <img
+                  src={getImageUrl("/image/img_sc_case.png")}
+                  alt="洋上風力発電の風車群"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

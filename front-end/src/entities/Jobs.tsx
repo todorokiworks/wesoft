@@ -1,7 +1,7 @@
 export interface Content {
-    title: string;
-    description: string;
-    list: string[];
+  title?: string;
+  description?: string;
+  list?: string[];
 }
 
 export interface Job {

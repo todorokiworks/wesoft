@@ -1,6 +1,7 @@
 import React from "react";
 import QueueAnim from "rc-queue-anim";
 import { Link } from "react-router-dom";
+import { getDataBaseUrl } from "../config";
 import "../css/banner.less";
 
 const Banner: React.FC = () => {
@@ -14,38 +15,25 @@ const Banner: React.FC = () => {
         ease="easeInOutQuart"
       >
         <div key="content" className="banner-wrapper-content">
-          個人個人の特徴
-          <br />
-          チーム的に存在
-          <br />
-          社会的な貢献へ
+          業務システムからWebアプリまで対応<br />
+          ソフトウェア開発会社 ウィソフト
         </div>
       </QueueAnim>
+
       <QueueAnim
-        className="banner-text-wrapper-2"
-        type="right"
-        duration={1000}
-        delay={800}
-        ease="easeInOutQuart"
-      >
-        <div key="content-down" className="banner-wrapper-content">
-          Individual characteristics
-          <br />
-          exist as a team
-          <br />
-          Towards social contribution
-        </div>
-      </QueueAnim>
-      <QueueAnim
-        className="banner-text-wrapper-3"
+        className="faq-wrapper"
         type="bottom"
         duration={1000}
-        delay={1200}
+        delay={400}
         ease="easeInOutQuart"
       >
-        <div key="button1" className="start-button clearfix">
-          <Link to="/company#t1">view more →</Link>
-        </div>
+        <a href="/faq" className="faq-wrapper-content-link">
+          <span className="faq-wrapper-content-title">FAQ</span>
+          <span className="faq-wrapper-content-description">詳しくはこちら</span>
+          <div>
+            <img src={`${getDataBaseUrl()}/image/icon_arrow_white.png`} alt="arrow" />
+          </div>
+        </a>
       </QueueAnim>
     </div>
   );
