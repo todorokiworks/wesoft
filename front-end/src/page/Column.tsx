@@ -144,7 +144,9 @@ const ColumnSidebarLinks: React.FC<{ data: ColumnEntity.ColumnData }> = ({
 }) => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
-  const activeCategory = searchParams.get("category");
+  const rawCategory = searchParams.get("category");
+  const activeCategory =
+    rawCategory && rawCategory.trim() !== "" ? rawCategory.trim() : null;
   const { isListIndex, isCategoriesPage } = sidebarPathSegments(
     location.pathname
   );
@@ -230,8 +232,9 @@ const ColumnLayout: React.FC = () => {
       <section className="subpage-section column-page" aria-label="コラム">
         <div className="column-layout">
           <div className="column-main">
+            {/* pathname のみ: 同一パスで ?category= や将来のクエリだけ変えると再マウントしない（ページネーション state を保持） */}
             <Outlet
-              key={`${location.pathname}${location.search}`}
+              key={location.pathname}
               context={{ data } satisfies ColumnOutletContext}
             />
           </div>
@@ -252,7 +255,9 @@ const ColumnLayout: React.FC = () => {
 export const ColumnListPage: React.FC = () => {
   const { data } = useOutletContext<ColumnOutletContext>();
   const [searchParams] = useSearchParams();
-  const categoryFilter = searchParams.get("category");
+  const categoryParam = searchParams.get("category");
+  const categoryFilter =
+    categoryParam && categoryParam.trim() !== "" ? categoryParam.trim() : null;
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
@@ -267,10 +272,19 @@ export const ColumnListPage: React.FC = () => {
   }, [categoryFilter]);
 
   const total = filtered.length;
-  const slice = useMemo(() => {
-    const start = (page - 1) * PAGE_SIZE;
-    return filtered.slice(start, start + PAGE_SIZE);
-  }, [filtered, page]);
+  const maxPage = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const safePage = Math.min(page, maxPage);
+  const sliceStart = (safePage - 1) * PAGE_SIZE;
+  const slice = useMemo(
+    () => filtered.slice(sliceStart, sliceStart + PAGE_SIZE),
+    [filtered, sliceStart]
+  );
+
+  useEffect(() => {
+    if (page !== safePage) {
+      setPage(safePage);
+    }
+  }, [page, safePage]);
 
   const listMeta = useMemo(() => {
     if (!categoryFilter) {
@@ -287,8 +301,11 @@ export const ColumnListPage: React.FC = () => {
     <>
       <PageMeta {...listMeta} />
       <ul className="column-article-list">
-        {slice.map((item) => (
-          <li key={item.id} className="column-article-card">
+        {slice.map((item, i) => (
+          <li
+            key={sliceStart + i}
+            className="column-article-card"
+          >
             <Link to={`/column/${item.id}`} className="column-article-card__link">
               <div className="column-article-card__header">
                 <h2 className="column-article-card__title">
@@ -334,7 +351,7 @@ export const ColumnListPage: React.FC = () => {
       {total > PAGE_SIZE ? (
         <div className="column-pagination">
           <Pagination
-            current={page}
+            current={safePage}
             pageSize={PAGE_SIZE}
             total={total}
             onChange={(p) => {
