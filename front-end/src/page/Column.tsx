@@ -1,6 +1,16 @@
 import "../css/subpage.less";
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, NavLink, Outlet, useLocation, useOutletContext, useParams, useSearchParams } from "react-router-dom";
+import type { To } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  createSearchParams,
+  useLocation,
+  useOutletContext,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { Pagination } from "antd";
 import { getDataBaseUrl, getImageUrl } from "../config";
 import PageMeta from "../common/PageMeta";
@@ -16,10 +26,15 @@ import {
 
 const PAGE_SIZE = 5;
 
+/** 親レイアウトから子ルートへ渡す Outlet 用コンテキスト（column.json のパース結果） */
 export type ColumnOutletContext = {
   data: ColumnEntity.ColumnData;
 };
 
+/**
+ * 一覧カード用に本文を短い文字列に圧縮する。
+ * 改行・連続空白を1スペースにし、maxLen を超えたら切り詰めて末尾に「…」を付与する。
+ */
 function excerptText(body: string, maxLen: number): string {
   const flat = body.replace(/\s+/g, " ").trim();
   if (flat.length <= maxLen) {
@@ -28,6 +43,10 @@ function excerptText(body: string, maxLen: number): string {
   return `${flat.slice(0, maxLen)}…`;
 }
 
+/**
+ * column.json を1回だけ取得するフック。
+ * マウント時に fetch し、loading / error / data を返す。成功時は categories と articles を含むオブジェクトが入る。
+ */
 function useColumnJson(): {
   data: ColumnEntity.ColumnData | null;
   loading: boolean;
@@ -60,6 +79,10 @@ function useColumnJson(): {
   return { data, loading, error };
 }
 
+/**
+ * 現在の pathname から「column セグメントより後ろ」だけを取り出し、一覧 index か・カテゴリ一覧ページかを判定する。
+ * サイドバーで「すべて」に current スタイルを付けるかどうかに使う。
+ */
 const sidebarPathSegments = (pathname: string) => {
   const segments = pathname.split("/").filter(Boolean);
   const colIdx = segments.lastIndexOf("column");
@@ -69,7 +92,38 @@ const sidebarPathSegments = (pathname: string) => {
   return { isListIndex, isCategoriesPage, rest };
 };
 
-/** 空行区切りでブロック分け。先頭を本文前段、画像の後に続きを表示 */
+type ColumnListLinkTarget = { to: To; relative?: "path" };
+
+/**
+ * /column 一覧（オプションで ?category=）への Link 用。
+ * /column/categories や /column/:articleId のように「column の右にパスがある」ときは relative="path" と .. で
+ * 実際の URL を1階層上げ、basename 付き環境でもカテゴリ一覧から一覧へ確実に切り替わるようにする。
+ */
+function columnListLink(
+  pathname: string,
+  categoryId: string | null
+): ColumnListLinkTarget {
+  const { rest } = sidebarPathSegments(pathname);
+  const nestedUnderColumn = rest.length > 0;
+
+  if (categoryId === null) {
+    if (nestedUnderColumn) {
+      return { to: { pathname: ".." }, relative: "path" };
+    }
+    return { to: "/column" };
+  }
+
+  const search = createSearchParams({ category: categoryId }).toString();
+  if (nestedUnderColumn) {
+    return { to: { pathname: "..", search }, relative: "path" };
+  }
+  return { to: { pathname: "/column", search } };
+}
+
+/**
+ * 本文を空行境界でパラグラフ単位に分割する。
+ * 2ブロック以上ある場合は先頭だけを before（画像より前）、残りを after（画像より後）にし、詳細ページで中央に画像を挟めるようにする。
+ */
 function splitArticleBody(body: string): { before: string[]; after: string[] } {
   const parts = body
     .split(/\n\s*\n/)
@@ -81,6 +135,10 @@ function splitArticleBody(body: string): { before: string[]; after: string[] } {
   return { before: [parts[0]], after: parts.slice(1) };
 }
 
+/**
+ * カテゴリ別ナビ。「すべて」は /column、各カテゴリは ?category= のクエリ付きで一覧に遷移。
+ * クエリと pathname を照合し、該当リンクに --current クラスを付ける。
+ */
 const ColumnSidebarLinks: React.FC<{ data: ColumnEntity.ColumnData }> = ({
   data,
 }) => {
@@ -92,6 +150,7 @@ const ColumnSidebarLinks: React.FC<{ data: ColumnEntity.ColumnData }> = ({
   );
   const allArticlesCurrent =
     isListIndex && !activeCategory && !isCategoriesPage;
+  const allLink = columnListLink(location.pathname, null);
 
   return (
     <>
@@ -103,7 +162,8 @@ const ColumnSidebarLinks: React.FC<{ data: ColumnEntity.ColumnData }> = ({
         <ul className="column-sidebar__list">
           <li className="column-sidebar__list-item">
             <Link
-              to="/column"
+              to={allLink.to}
+              {...(allLink.relative ? { relative: allLink.relative } : {})}
               className={
                 allArticlesCurrent
                   ? "column-sidebar__link column-sidebar__link--current"
@@ -119,10 +179,12 @@ const ColumnSidebarLinks: React.FC<{ data: ColumnEntity.ColumnData }> = ({
           </li>
           {data.categories.map((c) => {
             const current = activeCategory === c.id;
+            const catLink = columnListLink(location.pathname, c.id);
             return (
               <li key={c.id} className="column-sidebar__list-item">
                 <Link
-                  to={`/column?category=${encodeURIComponent(c.id)}`}
+                  to={catLink.to}
+                  {...(catLink.relative ? { relative: catLink.relative } : {})}
                   className={
                     current
                       ? "column-sidebar__link column-sidebar__link--current"
@@ -145,9 +207,13 @@ const ColumnSidebarLinks: React.FC<{ data: ColumnEntity.ColumnData }> = ({
   );
 };
 
-/** レイアウト: サイドバー + 記事エリア（子ルートは Outlet） */
+/**
+ * コラム親ルート。column.json を読み込み、共通の見出し・FAQリンク・2カラム枠を描画する。
+ * メイン領域は <Outlet /> で子ルート（一覧 / カテゴリ一覧 / 記事詳細）を差し替え、data を Outlet context で渡す。
+ */
 const ColumnLayout: React.FC = () => {
   const { data, loading, error } = useColumnJson();
+  const location = useLocation();
 
   if (loading) {
     return <SkeletonView />;
@@ -164,7 +230,10 @@ const ColumnLayout: React.FC = () => {
       <section className="subpage-section column-page" aria-label="コラム">
         <div className="column-layout">
           <div className="column-main">
-            <Outlet context={{ data } satisfies ColumnOutletContext} />
+            <Outlet
+              key={`${location.pathname}${location.search}`}
+              context={{ data } satisfies ColumnOutletContext}
+            />
           </div>
           <aside className="column-sidebar" aria-label="カテゴリー">
             <ColumnSidebarLinks data={data} />
@@ -175,6 +244,11 @@ const ColumnLayout: React.FC = () => {
   );
 };
 
+/**
+ * /column の index。?category= があればそのカテゴリに絞り込み、なければ全記事。
+ * クライアント側で PAGE_SIZE 件ずつスライスし、Ant Design Pagination でページング。カテゴリ変更時はページを1に戻す。
+ * SEO 用の title はカテゴリ付きのときだけプレフィックスを付ける。
+ */
 export const ColumnListPage: React.FC = () => {
   const { data } = useOutletContext<ColumnOutletContext>();
   const [searchParams] = useSearchParams();
@@ -276,8 +350,13 @@ export const ColumnListPage: React.FC = () => {
   );
 };
 
+/**
+ * /column/categories。全カテゴリをグリッド表示し、各カードから該当 ?category= の一覧へリンクする。
+ * 件数は articles を category id でカウントした値を表示する。
+ */
 export const ColumnCategoriesPage: React.FC = () => {
   const { data } = useOutletContext<ColumnOutletContext>();
+  const location = useLocation();
 
   return (
     <div className="column-categories">
@@ -289,10 +368,12 @@ export const ColumnCategoriesPage: React.FC = () => {
       <ul className="column-categories__grid">
         {data.categories.map((c) => {
           const count = data.articles.filter((a) => a.category === c.id).length;
+          const cardLink = columnListLink(location.pathname, c.id);
           return (
             <li key={c.id} className="column-categories__item">
               <Link
-                to={`/column?category=${encodeURIComponent(c.id)}`}
+                to={cardLink.to}
+                {...(cardLink.relative ? { relative: cardLink.relative } : {})}
                 className="column-categories__card"
               >
                 <span className="column-categories__name">{c.label}</span>
@@ -311,6 +392,10 @@ export const ColumnCategoriesPage: React.FC = () => {
   );
 };
 
+/**
+ * /column/:articleId。URL パラメータの articleId で記事を検索し、見つからなければ案内のみ表示。
+ * 見つかった場合は splitArticleBody で前後に分け、サムネ画像を段落の間に挿入して読みやすく並べる。PageMeta は記事単位。
+ */
 export const ColumnArticlePage: React.FC = () => {
   const { articleId } = useParams<{ articleId: string }>();
   const { data } = useOutletContext<ColumnOutletContext>();
