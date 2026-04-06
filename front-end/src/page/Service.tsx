@@ -2,8 +2,10 @@ import "../css/subpage.less";
 import React from "react";
 import { Link } from "react-router-dom";
 import { getImageUrl } from "../config";
+import PageMeta from "../common/PageMeta";
 import SubpageTitle from "../common/SubpageTitle";
 import FaqStickyLink from "../common/FaqStickyLink";
+import { PAGE_META } from "../seo/pageMeta";
 
 const SERVICE_SOFTWARE_CARDS = [
   {
@@ -71,6 +73,7 @@ const SERVICE_STRENGTH_ITEMS = [
 const Service: React.FC = () => {
   return (
     <div className="subpage subpage--service">
+      <PageMeta {...PAGE_META["/service"]} />
       <section className="subpage-section service-mv" aria-label="サービス紹介">
         <SubpageTitle titleJa="サービス" titleEn="service" as="h1" />
         <FaqStickyLink />

@@ -3,9 +3,11 @@ import '../css/subpage.less'
 import React, { useEffect, useState } from 'react';
 import { getDataBaseUrl, getImageUrl } from '../config';
 import { Carousel, Divider, Space } from "antd";
+import PageMeta from '../common/PageMeta';
 import SkeletonView from '../common/SkeletonView';
 import SubpageTitle from '../common/SubpageTitle';
 import * as BusinessEntity from '../entities/Business';
+import { BUSINESS_PAGE_META } from '../seo/pageMeta';
 
 
 const Business: React.FC = () => {
@@ -44,6 +46,7 @@ const Business: React.FC = () => {
 
     return (
         <div className='subpage business'>
+            <PageMeta {...BUSINESS_PAGE_META} />
             <SubpageTitle titleJa="事業内容" titleEn="Business" />
             <section className="subpage-section" aria-label="事業紹介スライダー">
             <Carousel autoplay arrows >

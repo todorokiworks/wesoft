@@ -1,4 +1,6 @@
 import "../css/subpage.less";
+import PageMeta from "../common/PageMeta";
+import { PAGE_META } from "../seo/pageMeta";
 import React, { useEffect, useState } from "react";
 import { getDataBaseUrl, getImageUrl } from "../config";
 import { useLocation } from "react-router-dom";
@@ -144,6 +146,7 @@ const Company: React.FC = () => {
 
   return (
     <>
+      <PageMeta {...PAGE_META["/company"]} />
       <div className="subpage subpage--company">
         <SubpageTitle titleJa="会社情報" titleEn="Company" />
         <FaqStickyLink />

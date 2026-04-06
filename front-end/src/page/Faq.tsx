@@ -3,8 +3,10 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getDataBaseUrl } from "../config";
 import FaqStickyLink from "../common/FaqStickyLink";
+import PageMeta from "../common/PageMeta";
 import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
+import { PAGE_META } from "../seo/pageMeta";
 
 type FaqBlock =
   | { type: "p"; text: string }
@@ -99,12 +101,18 @@ const Faq: React.FC = () => {
   );
 
   if (loading) {
-    return <SkeletonView />;
+    return (
+      <>
+        <PageMeta {...PAGE_META["/faq"]} />
+        <SkeletonView />
+      </>
+    );
   }
 
   if (error) {
     return (
       <div className="subpage subpage--faq">
+        <PageMeta {...PAGE_META["/faq"]} />
         <div className="faq-error">読み込みに失敗しました: {error}</div>
       </div>
     );
@@ -112,6 +120,7 @@ const Faq: React.FC = () => {
 
   return (
     <div className="subpage subpage--faq">
+      <PageMeta {...PAGE_META["/faq"]} />
       <SubpageTitle titleJa="よくある質問" titleEn="faq" as="h1" />
 
       <section className="subpage-section faq-section" aria-label="よくある質問一覧">

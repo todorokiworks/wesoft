@@ -6,6 +6,8 @@ import SubpageTitle from "../common/SubpageTitle";
 import * as NewsEntity from "../entities/News";
 import { Card, List } from "antd";
 import FaqStickyLink from "../common/FaqStickyLink";
+import PageMeta from "../common/PageMeta";
+import { NEWS_PAGE_META } from "../seo/pageMeta";
 
 const News: React.FC = () => {
   const [news, setEvents] = useState<NewsEntity.News[]>([]);
@@ -42,6 +44,7 @@ const News: React.FC = () => {
 
   return (
     <div className="subpage subpage--news">
+      <PageMeta {...NEWS_PAGE_META} />
       <SubpageTitle titleJa="新着情報" titleEn="News" />
       <FaqStickyLink />
       <section

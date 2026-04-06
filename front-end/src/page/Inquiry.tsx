@@ -10,10 +10,12 @@ import {
   Radio,
   Space,
 } from "antd";
+import PageMeta from "../common/PageMeta";
 import SubpageTitle from "../common/SubpageTitle";
 import PrivacyPolicyContent from "./PrivacyPolicyContent";
 import RecaptchaComponent from "../common/RecaptchaComponent";
 import FaqStickyLink from "../common/FaqStickyLink";
+import { PAGE_META } from "../seo/pageMeta";
 
 const INQUIRY_TYPES = [
   { value: "quote", label: "お見積りについて" },
@@ -142,6 +144,7 @@ const Inquiry: React.FC = () => {
 
   return (
     <div className="subpage subpage--inquiry">
+      <PageMeta {...PAGE_META["/inquiry"]} />
       <SubpageTitle titleJa="お問い合わせ" titleEn="contact" as="h1" />
       <FaqStickyLink />
       <section className="subpage-section" aria-label="お問い合わせフォーム">

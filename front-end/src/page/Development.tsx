@@ -1,8 +1,10 @@
 import "../css/subpage.less";
 import React, { useState } from "react";
 import { getImageUrl } from "../config";
+import PageMeta from "../common/PageMeta";
 import SubpageTitle from "../common/SubpageTitle";
 import FaqStickyLink from "../common/FaqStickyLink";
+import { PAGE_META } from "../seo/pageMeta";
 
 type DevelopmentCaseDetail = {
   id: string;
@@ -304,6 +306,7 @@ function DevelopmentCaseCard({ item }: { item: DevelopmentCaseDetail }) {
 const Development: React.FC = () => {
   return (
     <div className="subpage subpage--development">
+      <PageMeta {...PAGE_META["/development"]} />
       <SubpageTitle titleJa="開発事例" titleEn="development" as="h1" />
       <FaqStickyLink />
       <section

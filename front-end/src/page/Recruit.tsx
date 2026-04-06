@@ -2,10 +2,12 @@ import "../css/subpage.less";
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getDataBaseUrl, getImageUrl } from "../config";
+import PageMeta from "../common/PageMeta";
 import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
 import * as JobEntity from "../entities/Jobs";
 import FaqStickyLink from "../common/FaqStickyLink";
+import { PAGE_META } from "../seo/pageMeta";
 
 function recruitImageForTitle(title: string): string {
   if (title.includes("エンジニア")) {
@@ -484,6 +486,7 @@ const Recruit: React.FC = () => {
 
   return (
     <div className="subpage subpage--recruit">
+      <PageMeta {...PAGE_META["/recruit"]} />
       <SubpageTitle titleJa="採用情報" titleEn="Recruit" as="h1" />
       <FaqStickyLink />
       <section className="subpage-section recruit-mv" aria-label="採用メインビジュアル">

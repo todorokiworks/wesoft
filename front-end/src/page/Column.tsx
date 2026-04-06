@@ -3,10 +3,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, Outlet, useLocation, useOutletContext, useParams, useSearchParams } from "react-router-dom";
 import { Pagination } from "antd";
 import { getDataBaseUrl, getImageUrl } from "../config";
+import PageMeta from "../common/PageMeta";
 import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
 import * as ColumnEntity from "../entities/Column";
 import FaqStickyLink from "../common/FaqStickyLink";
+import {
+  articlePageMeta,
+  COLUMN_CATEGORIES_META,
+  COLUMN_INDEX_META,
+} from "../seo/pageMeta";
 
 const PAGE_SIZE = 5;
 
@@ -192,8 +198,20 @@ export const ColumnListPage: React.FC = () => {
     return filtered.slice(start, start + PAGE_SIZE);
   }, [filtered, page]);
 
+  const listMeta = useMemo(() => {
+    if (!categoryFilter) {
+      return COLUMN_INDEX_META;
+    }
+    const label = ColumnEntity.getCategoryLabel(data, categoryFilter);
+    return {
+      title: `${label}｜${COLUMN_INDEX_META.title}`,
+      description: COLUMN_INDEX_META.description,
+    };
+  }, [categoryFilter, data]);
+
   return (
     <>
+      <PageMeta {...listMeta} />
       <ul className="column-article-list">
         {slice.map((item) => (
           <li key={item.id} className="column-article-card">
@@ -263,6 +281,7 @@ export const ColumnCategoriesPage: React.FC = () => {
 
   return (
     <div className="column-categories">
+      <PageMeta {...COLUMN_CATEGORIES_META} />
       <h2 className="column-categories__title">カテゴリ一覧</h2>
       <p className="column-categories__lead">
         興味のあるカテゴリから記事一覧へ移動できます。
@@ -301,6 +320,7 @@ export const ColumnArticlePage: React.FC = () => {
   if (!article) {
     return (
       <div className="column-article-missing">
+        <PageMeta {...COLUMN_INDEX_META} />
         <p>記事が見つかりません。</p>
         <Link to="/column">コラム一覧へ</Link>
       </div>
@@ -309,9 +329,11 @@ export const ColumnArticlePage: React.FC = () => {
 
   const categoryLabel = ColumnEntity.getCategoryLabel(data, article.category);
   const { before, after } = splitArticleBody(article.body);
+  const articleMeta = articlePageMeta(article.title, article.body);
 
   return (
     <article className="column-article-detail">
+      <PageMeta {...articleMeta} />
       <div className="column-article-detail__card">
         <header className="column-article-detail__header">
           <h1 className="column-article-detail__title">

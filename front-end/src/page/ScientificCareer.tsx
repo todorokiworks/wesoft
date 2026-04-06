@@ -1,8 +1,10 @@
 import "../css/subpage.less";
 import React from "react";
 import { getImageUrl } from "../config";
+import PageMeta from "../common/PageMeta";
 import SubpageTitle from "../common/SubpageTitle";
 import FaqStickyLink from "../common/FaqStickyLink";
+import { PAGE_META } from "../seo/pageMeta";
 
 const IEEE_PAPERS = [
   {
@@ -18,6 +20,7 @@ const IEEE_PAPERS = [
 const ScientificCareer: React.FC = () => {
   return (
     <div className="subpage subpage--scientific-career">
+      <PageMeta {...PAGE_META["/scientific_career"]} />
       <SubpageTitle titleJa="研究事業" titleEn="Research" as="h1" />
       <FaqStickyLink />
       <section
