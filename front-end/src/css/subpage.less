@@ -1524,6 +1524,11 @@ html {
     max-width: 770px;
     height: 8px;
     background: #f1f1f1;
+
+    @media screen and (max-width: @max-width) {
+      width: 90vw;
+      max-width: none;
+    }
   }
 }
 
