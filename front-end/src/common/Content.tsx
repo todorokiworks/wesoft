@@ -10,6 +10,11 @@ import Service from "../page/Service";
 import Company from "../page/Company";
 import Inquiry from "../page/Inquiry";
 import Faq from "../page/Faq";
+import ColumnLayout, {
+  ColumnArticlePage,
+  ColumnCategoriesPage,
+  ColumnListPage,
+} from "../page/Column";
 
 const AppContent: React.FC = () => {
   return (
@@ -26,6 +31,11 @@ const AppContent: React.FC = () => {
           <Route path="/news" element={<News />} />
           <Route path="/inquiry" element={<Inquiry />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path="/column" element={<ColumnLayout />}>
+            <Route index element={<ColumnListPage />} />
+            <Route path="categories" element={<ColumnCategoriesPage />} />
+            <Route path=":articleId" element={<ColumnArticlePage />} />
+          </Route>
         </Routes>
       </div>
     </div>

@@ -4,9 +4,11 @@ import { getDataBaseUrl } from "../config";
 import TweenOne from "rc-tween-one";
 import QueueAnim from "rc-queue-anim";
 import RcScrollOverPack from "rc-scroll-anim/lib/ScrollOverPack";
+import useNarrowViewport from "../common/useNarrowViewport";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 const SubHome1: React.FC = () => {
+  const narrow = useNarrowViewport();
   const navigate = useNavigate();
 
   const handleLinkTo = () => {
@@ -26,7 +28,7 @@ const SubHome1: React.FC = () => {
         <h2 key="h2" className="home-title-ja-lg">ウィソフトの強み</h2>
         <p className="home-title-en-lg" key="home-title-en-lg">Strength</p>
 
-        <p className="strength-content__description">ウィソフトの開発スタイル 個の力を、チームの技術へ
+        <p className="strength-content__description">ウィソフトの開発スタイル 個の力を、<br className="sp" />チームの技術へ
         </p>
       </QueueAnim>
       <TweenOne
@@ -34,9 +36,8 @@ const SubHome1: React.FC = () => {
         className="strength-content"
         animation={{ x: 0, opacity: 1, ease: "easeOutQuad" }}
         style={{
-          transform: "translateX(100px)",
+          transform: `translateX(${narrow ? 0 : 100}px)`,
           opacity: 0,
-
         }}
       >
         <div className="strength-content__wrapper">
@@ -81,15 +82,15 @@ const SubHome1: React.FC = () => {
           </div>
 
 
-          <p className="strength-content__bottom-description">得意分野に依存せず、要件検討から運用までをチームで支える開発体制</p>
+          <p className="strength-content__bottom-description">得意分野に依存せず、<br className="sp" />要件検討から運用までをチームで支える開発体制</p>
 
           <Button
             type="primary"
-            style={{ backgroundColor: "#a51f27", borderColor: "#a51f27", borderRadius: "0", width: "350px", fontSize: "20px", fontWeight: "bold", padding: "30px 0px" }}
+            className="strength-content__cta-btn"
             size="large"
             onClick={handleLinkTo}
           >
-            詳細はこちら
+            サービスはこちら
           </Button>
         </div>
       </TweenOne>

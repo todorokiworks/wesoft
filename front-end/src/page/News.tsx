@@ -5,7 +5,7 @@ import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
 import * as NewsEntity from "../entities/News";
 import { Card, List } from "antd";
-import Meta from "antd/es/card/Meta";
+import FaqStickyLink from "../common/FaqStickyLink";
 
 const News: React.FC = () => {
   const [news, setEvents] = useState<NewsEntity.News[]>([]);
@@ -41,88 +41,60 @@ const News: React.FC = () => {
   }
 
   return (
-    <div
-      className="subpage"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-      }}
-    >
-      <SubpageTitle titleJa="ニュース" titleEn="News" />
-      <section className="subpage-section" aria-label="ニュース一覧">
-      <List
-        itemLayout="vertical"
-        size="large"
-        className="news-list"
-        pagination={{
-          onChange: (page) => {
-            // window.scrollTo({ top: 0, behavior: "smooth" });
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
-          },
-          pageSize: 5,
-        }}
-        dataSource={news}
-        renderItem={(item) => (
-          <List.Item key={item.title}>
-            <>
+    <div className="subpage subpage--news">
+      <SubpageTitle titleJa="新着情報" titleEn="News" />
+      <FaqStickyLink />
+      <section
+        className="subpage-section subpage-section--news-inner"
+        aria-label="ニュース一覧"
+      >
+        <List
+          itemLayout="vertical"
+          size="large"
+          className="news-list"
+          pagination={{
+            onChange: () => {
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+            },
+            pageSize: 5,
+            showSizeChanger: false,
+          }}
+          dataSource={news}
+          renderItem={(item, index) => (
+            <List.Item
+              key={`${item.title}-${item.subTitle}-${index}`}
+              className="news-list__item"
+            >
               <Card
                 hoverable
-                className="main-card news-card"
-                cover={
-                  <>
-                    <Meta
-                      style={{
-                        width: "100%",
-                        textAlign: "center",
-                        fontSize: "16px",
-                      }}
-                      title={
-                        <div className="news-text-main">
-                          <div className="news-date">
-                            <h2>{item.title}</h2>
-                          </div>
-                          <div className="news-title">
-                            <div className="news-content">
-                              <h2
-                                style={{
-                                  whiteSpace: "normal",
-                                  wordWrap: "break-word",
-                                }}
-                              >
-                                {item.subTitle}
-                              </h2>
-                            </div>
-                          </div>
-                        </div>
-                      }
-                      description={
-                        <div className="news-summary">{item.summary}</div>
-                      }
-                    />
-{item.images
-                      ? item.images.map((image) => (
-                          <div
-                            key={image}
-                            style={{
-                              width: "100%",
-                              marginTop: "20px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <img style={{ width: "80%" }} src={getImageUrl(image)} alt="" />
-                        </div>
-                      ))
-                      : null}
-                  </>
-                }
-              ></Card>
-            </>
-          </List.Item>
-        )}
-      />
+                bordered={false}
+                className="news-card news-page-card"
+              >
+                <div className="news-card__inner">
+                  <p className="news-card__date">{item.title}</p>
+                  <h2 className="news-card__headline">{item.subTitle}</h2>
+                  {item.summary?.trim() ? (
+                    <p className="news-card__summary">{item.summary.trim()}</p>
+                  ) : null}
+                  {item.images?.length ? (
+                    <div className="news-card__media">
+                      {item.images.map((image) => (
+                        <img
+                          key={image}
+                          src={getImageUrl(image)}
+                          alt=""
+                          className="news-card__img"
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              </Card>
+            </List.Item>
+          )}
+        />
       </section>
     </div>
   );

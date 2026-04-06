@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import * as CustomerEntity from "../entities/Customer";
 import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
+import FaqStickyLink from "../common/FaqStickyLink";
 
 const COMPANY_HISTORY: { date: string; text: string }[] = [
   { date: "2025年4月", text: "派遣資格を取得しました。" },
@@ -145,6 +146,7 @@ const Company: React.FC = () => {
     <>
       <div className="subpage subpage--company">
         <SubpageTitle titleJa="会社情報" titleEn="Company" />
+        <FaqStickyLink />
         <section className="company-section company-section--message" aria-labelledby="t1">
           <div className="message-main">
             <div className="message-content">

@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { getImageUrl } from "../config";
 import SubpageTitle from "../common/SubpageTitle";
+import FaqStickyLink from "../common/FaqStickyLink";
 
 const SERVICE_SOFTWARE_CARDS = [
   {
@@ -72,6 +73,7 @@ const Service: React.FC = () => {
     <div className="subpage subpage--service">
       <section className="subpage-section service-mv" aria-label="サービス紹介">
         <SubpageTitle titleJa="サービス" titleEn="service" as="h1" />
+        <FaqStickyLink />
         <div className="service-mv__catchphrase">
           <p className="service-mv__catchphrase-text">
             業務システム・Webシステムの受託・請負開発

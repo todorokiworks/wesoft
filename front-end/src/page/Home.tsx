@@ -9,7 +9,7 @@ import SubHome2 from './SubHome2';
 const Home: React.FC = () => {
 
     return (
-        <div>
+        <div className="home-root">
             <Banner />
             <SubHome0 />
             <SubHome1 />

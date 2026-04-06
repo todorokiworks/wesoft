@@ -10,17 +10,17 @@ const CASE_ITEMS = [
     {
         key: "1",
         image: "/image/top-case01.png",
-        title: "クラウド経費精算システム",
+        title: "クラウド経費精算<br className='sp' />システム",
     },
     {
         key: "2",
         image: "/image/top-case02.png",
-        title: "大手専門技術商社の各システムデータの集約・統合・連携",
+        title: "大手専門技術商社の各システム<br className='sp' />データの集約・統合・連携",
     },
     {
         key: "3",
         image: "/image/top-case03.png",
-        title: "洋上風力発電レイアウト最適化プラットフォーム",
+        title: "洋上風力発電レイアウト<br className='sp' />最適化プラットフォーム",
     },
     {
         key: "4",
@@ -53,24 +53,26 @@ const SubHome2: React.FC = () => {
                 key="case-studies-grid"
                 leaveReverse
             >
-                <div key="grid" className="case-studies__grid">
-                    {CASE_ITEMS.map((item) => (
-                        <div key={item.key} className="case-studies__card">
-                            <div className="case-studies__card-image-wrap">
-                                <img
-                                    src={getImageUrl(item.image)}
-                                    alt={item.title}
-                                    className="case-studies__card-image"
-                                />
+                <div key="grid" className="case-studies__grid-scroll">
+                    <div className="case-studies__grid">
+                        {CASE_ITEMS.map((item) => (
+                            <div key={item.key} className="case-studies__card">
+                                <div className="case-studies__card-image-wrap">
+                                    <img
+                                        src={getImageUrl(item.image)}
+                                        alt={item.title}
+                                        className="case-studies__card-image"
+                                    />
+                                </div>
+                                <p className="case-studies__card-title" dangerouslySetInnerHTML={{ __html: item.title }} />
+                                <Link to="/development" className="case-studies__card-link">
+                                    <Button size="large" className="case-studies__card-button">
+                                        詳しくはこちら
+                                    </Button>
+                                </Link>
                             </div>
-                            <p className="case-studies__card-title">{item.title}</p>
-                            <Link to="/development" className="case-studies__card-link">
-                                <Button size="large" className="case-studies__card-button">
-                                    詳しくはこちら
-                                </Button>
-                            </Link>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </QueueAnim>
             <QueueAnim
@@ -86,8 +88,6 @@ const SubHome2: React.FC = () => {
                             type="primary"
                             size="large"
                             className="case-studies__cta-main"
-                            style={{ backgroundColor: "#a51f27", borderColor: "#a51f27", borderRadius: "0", width: "350px", fontSize: "20px", fontWeight: "bold", padding: "30px 0px" }}
-
                         >
                             開発事例はこちら
                         </Button>
@@ -97,8 +97,6 @@ const SubHome2: React.FC = () => {
                             type="primary"
                             size="large"
                             className="case-studies__cta-main"
-                            style={{ backgroundColor: "#a51f27", borderColor: "#a51f27", borderRadius: "0", width: "350px", fontSize: "20px", fontWeight: "bold", padding: "30px 0px" }}
-
                         >
                             研究事例はこちら
                         </Button>

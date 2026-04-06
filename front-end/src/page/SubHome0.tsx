@@ -6,12 +6,14 @@ import QueueAnim from "rc-queue-anim";
 import { Button, Table } from "antd";
 import RcScrollOverPack from "rc-scroll-anim/lib/ScrollOverPack";
 import SkeletonView from "../common/SkeletonView";
+import useNarrowViewport from "../common/useNarrowViewport";
 import * as NewsEntity from "../entities/News";
 import ColumnGroup from "antd/es/table/ColumnGroup";
 import Column from "antd/es/table/Column";
 import { useNavigate } from "react-router-dom";
 
 const SubHome0: React.FC = () => {
+  const narrow = useNarrowViewport();
   const [news, setEvents] = useState<NewsEntity.News[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +52,8 @@ const SubHome0: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
-  let lastFiveNews = news.filter((item) => item.type === 1).slice(-5);
+  // news は JSON 反転済みのため先頭が新しい。type 1 の直近 5 件は先頭から 5 件
+  const lastFiveNews = news.filter((item) => item.type === 1).slice(0, 5);
 
   return (
     <RcScrollOverPack id="top-news" >
@@ -69,7 +72,7 @@ const SubHome0: React.FC = () => {
         className="home-content"
         animation={{ x: 0, opacity: 1, ease: "easeOutQuad" }}
         style={{
-          transform: "translateX(100px)",
+          transform: `translateX(${narrow ? 0 : 100}px)`,
           opacity: 0,
         }}
       >
@@ -79,15 +82,32 @@ const SubHome0: React.FC = () => {
           pagination={false}
           size="large"
           className="home-table"
+          tableLayout="fixed"
         >
           <ColumnGroup title="Name">
-            <Column dataIndex="title" key="title" className="home-table-title" />
+            <Column
+              dataIndex="title"
+              key="title"
+              className="home-table-title"
+              width={200}
+              render={(title: string, _record: NewsEntity.News, rowIndex: number) => (
+                <span className="home-table-date">
+                  {title}
+                  {rowIndex === 0 ? (
+                    <span className="home-table-new-badge" aria-label="新着">
+                      NEW
+                    </span>
+                  ) : null}
+                </span>
+              )}
+            />
           </ColumnGroup>
 
           <ColumnGroup title="subTitle">
             <Column
+              className="home-table-content"
               render={(_: any, record: NewsEntity.News) => (
-                <div>
+                <div className="home-table-content-inner">
                   <span className="subTitle">{record.subTitle}</span>
 
                   <span className="summary">{record.summary}</span>
@@ -107,7 +127,8 @@ const SubHome0: React.FC = () => {
       >
         <Button
           type="primary"
-          style={{ backgroundColor: "#a51f27", borderColor: "#a51f27", borderRadius: "0", width: "160px" }}
+          className="c-btn slide"
+          style={{ width: "160px" }}
           size="large"
           onClick={handleLinkTo}
         >
