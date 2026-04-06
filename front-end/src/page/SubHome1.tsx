@@ -12,7 +12,7 @@ const SubHome1: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLinkTo = () => {
-    navigate("/news");
+    navigate("/service");
     window.scrollTo(0, 0);
   };
 
