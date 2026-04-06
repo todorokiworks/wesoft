@@ -164,7 +164,9 @@ const AppHeader: React.FC = () => {
 
           <div className="header-drawer__footer">
             <p className="header-drawer__tel">
-              TEL.{HEADER_TEL_TEXT}
+              <a href={HEADER_TEL_HREF} className="header-drawer__tel-link">
+                TEL.{HEADER_TEL_TEXT}
+              </a>
             </p>
             <Link
               to="/inquiry"
