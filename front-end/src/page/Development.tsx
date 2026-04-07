@@ -319,25 +319,28 @@ function DevelopmentCaseCard({ item }: { item: DevelopmentCaseDetail }) {
           </section>
           <section className="development-case-card__block development-case-card__block--notes">
             <h4 className="development-case-card__block-heading">備考</h4>
-            <table className="development-case-card__notes">
-              <tbody>
-                {item.notes.tools && (
-                  <tr>
-                    <th scope="row">ツール</th>
-                    <td>{item.notes.tools}</td>
-                  </tr>
-                )}
-                <tr>
-                  <th scope="row">技術</th>
-                  <td>{item.notes.language}</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">規模</th>
-                  <td>{item.notes.duration}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="development-case-card__notes">
+              {item.notes.tools ? (
+                <div className="development-case-card__notes-group">
+                  <div className="development-case-card__notes-bar">ツール</div>
+                  <p className="development-case-card__notes-text">
+                    {item.notes.tools}
+                  </p>
+                </div>
+              ) : null}
+              <div className="development-case-card__notes-group">
+                <div className="development-case-card__notes-bar">技術</div>
+                <p className="development-case-card__notes-text">
+                  {item.notes.language}
+                </p>
+              </div>
+              <div className="development-case-card__notes-group">
+                <div className="development-case-card__notes-bar">規模</div>
+                <p className="development-case-card__notes-text">
+                  {item.notes.duration}
+                </p>
+              </div>
+            </div>
           </section>
         </div>
       ) : null}

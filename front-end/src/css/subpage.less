@@ -771,6 +771,13 @@ html {
     background-color: #1e88e5;
   }
 
+  .development-case-card__block--notes .development-case-card__block-heading {
+    margin-bottom: 0;
+    padding: 14px 16px 0;
+    border-bottom: none;
+    background-color: #ebebeb;
+  }
+
   .development-case-card__block--notes .development-case-card__block-heading::before {
     display: none;
   }
@@ -809,41 +816,59 @@ html {
   }
 
   .development-case-card__notes {
+    box-sizing: border-box;
     width: 100%;
-    border-collapse: collapse;
+    padding: 14px 16px 16px;
+    background-color: #ebebeb;
     font-size: 14px;
     line-height: 1.55;
 
-    th {
-      width: 72px;
-      padding: 10px 12px;
-      text-align: left;
-      font-weight: bold;
-      color: #4e4e4e;
-      background-color: #e8e8e8;
-      border: 1px solid #ccc;
-      vertical-align: top;
+    @media screen and (max-width: @max-width) {
+      padding: 12px 14px 14px;
+      font-size: 13px;
     }
+  }
 
-    td {
-      padding: 10px 12px;
-      color: #4e4e4e;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      vertical-align: top;
+  .development-case-card__notes-group {
+    margin-bottom: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
     }
 
     @media screen and (max-width: @max-width) {
+      margin-bottom: 12px;
+    }
+  }
+
+  .development-case-card__notes-bar {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.35;
+    color: #fff;
+    background-color: #5c5c5c;
+    text-align: left;
+
+    @media screen and (max-width: @max-width) {
+      padding: 7px 10px;
       font-size: 13px;
+    }
+  }
 
-      th {
-        width: 64px;
-        padding: 8px 10px;
-      }
+  .development-case-card__notes-text {
+    margin: 0;
+    padding: 8px 2px 0;
+    color: #333;
+    line-height: 1.65;
+    text-align: left;
 
-      td {
-        padding: 8px 10px;
-      }
+    @media screen and (max-width: @max-width) {
+      padding-top: 7px;
+      font-size: 13px;
     }
   }
 
