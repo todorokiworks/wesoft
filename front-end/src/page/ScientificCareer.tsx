@@ -39,24 +39,28 @@ const ScientificCareer: React.FC = () => {
               </span>
             </h2>
             <p className="scientific-career__lead">
-              ウィソフトでは、受託開発を主軸としながら、その品質と将来性を支える技術基盤として、研究活動にも継続して取り組んでいます。技術の理解と応用力を高めることで、日々の開発業務の土台を強化しています。
+              ウィソフトでは、受託開発を主軸としながら、その品質と将来性を支える技術基盤として、<br />研究活動にも継続して取り組んでいます。技術の理解と応用力を高めることで、日々の開発業務の土台を強化しています。
             </p>
           </header>
 
-          <div className="scientific-career__row">
-            <div className="scientific-career__col scientific-career__col--text">
-              <h3 className="scientific-career__subhead">
-                研究分野A（人工知能）研究
-              </h3>
-              <p className="scientific-career__body">
-                ディープラーニングを中心とした人工知能分野において、識別や予測精度の向上を目的とした研究を行っています。単一技術にとどまらず、複数の技術を組み合わせることで、将来的な実用化につながる可能性を見据えた研究を進めています。
-              </p>
-            </div>
-            <div className="scientific-career__col scientific-career__col--media">
-              <img
-                src={getImageUrl("/image/img_sc_ai.png")}
-                alt="WE Ai ロゴ（power by WeAI）"
-              />
+
+          <div className="scientific-career__wrapper">
+            <h3 className="scientific-career__subhead">
+              研究分野A（人工知能）研究
+            </h3>
+            <div className="scientific-career__row">
+              <div className="scientific-career__col scientific-career__col--text">
+
+                <p className="scientific-career__body">
+                  ディープラーニングを中心とした人工知能分野において、識別や予測精度の向上を目的とした研究を行っています。<br />単一技術にとどまらず、複数の技術を組み合わせることで、将来的な実用化につながる可能性を見据えた研究を進めています。
+                </p>
+              </div>
+              <div className="scientific-career__col scientific-career__col--media">
+                <img
+                  src={getImageUrl("/image/img_sc_ai.png")}
+                  alt="WE Ai ロゴ（power by WeAI）"
+                />
+              </div>
             </div>
           </div>
 
