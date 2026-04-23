@@ -44,13 +44,12 @@ const AppFooter: React.FC = () => {
             お問い合わせ
           </Link>
 
-          <a
-            href=""
+          <button
+            type="button"
             className="footer__sales-dl"
-            onClick={(event) => event.preventDefault()}
           >
             営業資料DL
-          </a>
+          </button>
         </div>
 
         <div className="footer__bottom">
