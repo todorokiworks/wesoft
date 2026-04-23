@@ -46,7 +46,7 @@ const AppFooter: React.FC = () => {
 
           <button
             type="button"
-            className="footer__sales-dl"
+            className="footer__inquiry footer__sales-dl"
           >
             営業資料DL
           </button>
