@@ -44,6 +44,16 @@ const AppFooter: React.FC = () => {
             お問い合わせ
           </Link>
 
+          <a
+            href=""
+            className="footer__sales-dl"
+            onClick={(event) => event.preventDefault()}
+          >
+            営業資料DL
+          </a>
+        </div>
+
+        <div className="footer__bottom">
           <button
             type="button"
             className="footer__privacy"
@@ -51,11 +61,11 @@ const AppFooter: React.FC = () => {
           >
             プライバシーポリシー
           </button>
+          <p className="footer__copyright">
+            © {currentYear} ウィソフト株式会社 Co.,Ltd.無断転載を禁じます。
+          </p>
+          <span className="footer__bottom-spacer" aria-hidden />
         </div>
-
-        <p className="footer__copyright">
-          © {currentYear} ウィソフト株式会社 Co.,Ltd.無断転載を禁じます。
-        </p>
       </div>
 
       <Modal
