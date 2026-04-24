@@ -44,12 +44,13 @@ const AppFooter: React.FC = () => {
             お問い合わせ
           </Link>
 
-          <button
-            type="button"
+          <a
+            href={`${getDataBaseUrl()}/pdf/wesoft_document.pdf`}
             className="footer__inquiry footer__sales-dl"
+            download="wesoft_document.pdf"
           >
             営業資料DL
-          </button>
+          </a>
         </div>
 
         <div className="footer__bottom">
