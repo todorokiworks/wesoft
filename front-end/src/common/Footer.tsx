@@ -49,7 +49,7 @@ const AppFooter: React.FC = () => {
             className="footer__inquiry footer__sales-dl"
             download="wesoft_document.pdf"
           >
-            営業資料DL
+            資料DL
           </a>
         </div>
 
