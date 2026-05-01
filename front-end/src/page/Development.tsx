@@ -71,7 +71,7 @@ const DEVELOPMENT_CASES: DevelopmentCaseDetail[] = [
     ],
     notes: {
       tools: "DataSpider Servista",
-      language: "AWS、Azrue、Salesforce、Kintone、各種Database",
+      language: "AWS、Azure、Salesforce、Kintone、各種Database",
       duration: "４人チーム（運用保守２人、開発２人）",
     },
   },
