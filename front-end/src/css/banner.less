@@ -1,0 +1,138 @@
+@primary-color: #1890ff;
+
+.banner-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  background: url("../../public/image/top1.jpeg") no-repeat center / cover;
+  height: 100vh;
+  position: relative;
+
+  @media screen and (max-width: @max-width) {
+    height: 240px;
+    /* 固定ヘッダー（ロゴ＋TEL・お問い合わせ・メニュー）直下に余白 */
+    margin-top: 60px;
+  }
+}
+
+.banner-text-wrapper-1 {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 29px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  display: inline-block;
+
+  @media screen and (max-width: @max-width) {
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 96%;
+  }
+
+  .banner-wrapper-content {
+    padding: 20px 40px;
+    width: fit-content;
+    font-size: 40px;
+    font-weight: bold;
+
+    @media screen and (max-width: @max-width) {
+      padding: 20px 10px;
+      font-size: 18px;
+      width: auto;
+      max-width: calc(100% - 24px);
+      box-sizing: border-box;
+    }
+  }
+}
+
+
+
+
+.banner-wrapper .start-button {
+  @start-button-color: tint(#fff, 20%);
+  text-align: center;
+
+  >a {
+    display: inline-block;
+    height: 40px;
+    padding: 0 16px;
+    font-weight: 500;
+    border: 1px solid @start-button-color;
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    background: #cc3300;
+    transition: all 0.45s;
+    text-align: center;
+    line-height: 36px;
+    margin-left: 8px;
+    width: 200px;
+
+    &:hover {
+      color: #cc3300;
+      background: @start-button-color;
+      cursor: pointer;
+    }
+  }
+}
+
+.faq-wrapper {
+  position: absolute;
+  top: 8%;
+  right: 0;
+  color: #fff;
+  font-size: 25px;
+  background: #7a7a7a;
+
+  width: 130px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  @media screen and (max-width: @max-width) {
+    top: 12%;
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    display: none;
+  }
+
+  .faq-wrapper-content-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .faq-wrapper-content-title {
+    font-size: 25px;
+    font-weight: bold;
+    display: block;
+
+    @media screen and (max-width: @max-width) {
+      font-size: 18px;
+    }
+  }
+
+  .faq-wrapper-content-description {
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+
+    @media screen and (max-width: @max-width) {
+      font-size: 10px;
+    }
+  }
+}

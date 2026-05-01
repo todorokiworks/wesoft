@@ -1,0 +1,15 @@
+/**
+ * GitHub Pages用: index.html を 404.html にコピー
+ * リロード時に SPA のルートが正しく表示されるようにする
+ */
+const fs = require("fs");
+const path = require("path");
+
+const buildDir = path.join(__dirname, "../build");
+const indexPath = path.join(buildDir, "index.html");
+const notFoundPath = path.join(buildDir, "404.html");
+
+if (fs.existsSync(indexPath)) {
+  fs.copyFileSync(indexPath, notFoundPath);
+  console.log("Created 404.html for GitHub Pages SPA routing");
+}
