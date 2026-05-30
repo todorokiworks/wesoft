@@ -12,7 +12,8 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { Pagination } from "antd";
-import { getDataBaseUrl, getImageUrl } from "../config";
+import { fetchColumnData } from "../api/fetchColumnData";
+import { getImageUrl } from "../config";
 import PageMeta from "../common/PageMeta";
 import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
@@ -26,7 +27,7 @@ import {
 
 const PAGE_SIZE = 5;
 
-/** 親レイアウトから子ルートへ渡す Outlet 用コンテキスト（column.json のパース結果） */
+/** 親レイアウトから子ルートへ渡す Outlet 用コンテキスト（コラムデータ） */
 export type ColumnOutletContext = {
   data: ColumnEntity.ColumnData;
 };
@@ -44,10 +45,10 @@ function excerptText(body: string, maxLen: number): string {
 }
 
 /**
- * column.json を1回だけ取得するフック。
- * マウント時に fetch し、loading / error / data を返す。成功時は categories と articles を含むオブジェクトが入る。
+ * コラムデータを1回だけ取得するフック（microCMS または column.json）。
+ * マウント時に fetch し、loading / error / data を返す。
  */
-function useColumnJson(): {
+function useColumnData(): {
   data: ColumnEntity.ColumnData | null;
   loading: boolean;
   error: string | null;
@@ -57,21 +58,15 @@ function useColumnJson(): {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const t = Date.now();
-    fetch(`${getDataBaseUrl()}/data/column.json?t=${t}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
-      .then((json: ColumnEntity.ColumnData) => {
+    fetchColumnData()
+      .then((json) => {
         setData(json);
         setLoading(false);
       })
-      .catch((e) => {
+      .catch((e: unknown) => {
         console.error(e);
-        setError(e.message ?? "load error");
+        const message = e instanceof Error ? e.message : "load error";
+        setError(message);
         setLoading(false);
       });
   }, []);
@@ -210,11 +205,11 @@ const ColumnSidebarLinks: React.FC<{ data: ColumnEntity.ColumnData }> = ({
 };
 
 /**
- * コラム親ルート。column.json を読み込み、共通の見出し・FAQリンク・2カラム枠を描画する。
+ * コラム親ルート。データを読み込み、共通の見出し・FAQリンク・2カラム枠を描画する。
  * メイン領域は <Outlet /> で子ルート（一覧 / カテゴリ一覧 / 記事詳細）を差し替え、data を Outlet context で渡す。
  */
 const ColumnLayout: React.FC = () => {
-  const { data, loading, error } = useColumnJson();
+  const { data, loading, error } = useColumnData();
   const location = useLocation();
 
   if (loading) {
@@ -432,6 +427,7 @@ export const ColumnArticlePage: React.FC = () => {
   const categoryLabel = ColumnEntity.getCategoryLabel(data, article.category);
   const { before, after } = splitArticleBody(article.body);
   const articleMeta = articlePageMeta(article.title, article.body);
+  const useHtmlBody = Boolean(article.bodyHtml?.trim());
 
   return (
     <article className="column-article-detail">
@@ -450,25 +446,45 @@ export const ColumnArticlePage: React.FC = () => {
         </header>
         <p className="column-article-detail__category-pill">{categoryLabel}</p>
         <div className="column-article-detail__content">
-          {before.map((block, i) => (
-            <p key={`col-b-${i}`} className="column-article-detail__para">
-              {block}
-            </p>
-          ))}
-          {article.thumbnail ? (
-            <figure className="column-article-detail__figure">
-              <img
-                src={getImageUrl(article.thumbnail)}
-                alt=""
-                className="column-article-detail__figure-img"
+          {useHtmlBody ? (
+            <>
+              {article.thumbnail ? (
+                <figure className="column-article-detail__figure">
+                  <img
+                    src={getImageUrl(article.thumbnail)}
+                    alt=""
+                    className="column-article-detail__figure-img"
+                  />
+                </figure>
+              ) : null}
+              <div
+                className="column-article-detail__html"
+                dangerouslySetInnerHTML={{ __html: article.bodyHtml ?? "" }}
               />
-            </figure>
-          ) : null}
-          {after.map((block, i) => (
-            <p key={`col-a-${i}`} className="column-article-detail__para">
-              {block}
-            </p>
-          ))}
+            </>
+          ) : (
+            <>
+              {before.map((block, i) => (
+                <p key={`col-b-${i}`} className="column-article-detail__para">
+                  {block}
+                </p>
+              ))}
+              {article.thumbnail ? (
+                <figure className="column-article-detail__figure">
+                  <img
+                    src={getImageUrl(article.thumbnail)}
+                    alt=""
+                    className="column-article-detail__figure-img"
+                  />
+                </figure>
+              ) : null}
+              {after.map((block, i) => (
+                <p key={`col-a-${i}`} className="column-article-detail__para">
+                  {block}
+                </p>
+              ))}
+            </>
+          )}
         </div>
         <p className="column-article-detail__back">
           <Link to="/column">一覧へ戻る</Link>

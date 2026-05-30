@@ -2,7 +2,7 @@ import "../css/subpage.less";
 import PageMeta from "../common/PageMeta";
 import { PAGE_META } from "../seo/pageMeta";
 import React, { useEffect, useState } from "react";
-import { getDataBaseUrl, getImageUrl } from "../config";
+import { getDataUrl, getImageUrl } from "../config";
 import { useLocation } from "react-router-dom";
 import * as CustomerEntity from "../entities/Customer";
 import SkeletonView from "../common/SkeletonView";
@@ -41,7 +41,7 @@ const Company: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`${getDataBaseUrl()}/data/customer.json?t=${timestamp}`)
+    fetch(`${getDataUrl("customer.json")}?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -186,7 +186,7 @@ const Company: React.FC = () => {
             </div>
             <div className="message-imgdiv">
               <img
-                src={`${getDataBaseUrl()}/image/president.jpg`}
+                src={getImageUrl("/image/president.jpg")}
                 className="message-image"
                 alt="代表取締役社長"
               />

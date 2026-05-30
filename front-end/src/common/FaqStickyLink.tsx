@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getDataBaseUrl } from "../config";
+import { getImageUrl } from "../config";
 
 export type FaqStickyLinkProps = {
   className?: string;
@@ -21,7 +21,7 @@ const FaqStickyLink: React.FC<FaqStickyLinkProps> = ({ className }) => {
         <span className="faq-wrapper-content-description">詳しくはこちら</span>
         <div>
           <img
-            src={`${getDataBaseUrl()}/image/icon_arrow_white.png`}
+            src={getImageUrl("/image/icon_arrow_white.png")}
             alt=""
           />
         </div>

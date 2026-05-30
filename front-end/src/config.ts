@@ -1,38 +1,61 @@
 /**
  * デプロイ先に応じたベースパス・URLの設定
  *
- * - テスト (GitHub Pages): REACT_APP_BASE_PATH=/wesoft
- * - 本番 (納品): REACT_APP_BASE_PATH 未設定 → ルートで動作
+ * - ローカル (npm start): ルート `/`（PUBLIC_URL=/）
+ * - GitHub Pages 確認 (npm run start:ghpages): `/wesoft`
+ * - 本番納品ビルド: ルート `/`
  */
 
-/** データ取得用のベースURL（fetchのパスに付与） */
-export const getDataBaseUrl = (): string => {
-  const basePath = process.env.REACT_APP_BASE_PATH;
-  if (basePath) {
-    return basePath.startsWith("/") ? basePath : `/${basePath}`;
+/** アプリのベースパス（先頭スラッシュ付き、未設定時は空文字） */
+export const getBasePath = (): string => {
+  const envBase = process.env.REACT_APP_BASE_PATH?.trim();
+  if (envBase) {
+    return envBase.startsWith("/") ? envBase : `/${envBase}`;
   }
-  if (process.env.PUBLIC_URL) {
-    try {
-      const pathname = new URL(process.env.PUBLIC_URL).pathname;
-      return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-    } catch {
+  // ローカル開発は常にルート（homepage の /wesoft を使わない）
+  if (process.env.NODE_ENV === "development") {
+    return "";
+  }
+  const publicUrl = process.env.PUBLIC_URL?.trim();
+  if (!publicUrl || publicUrl === "/") {
+    return "";
+  }
+  try {
+    const pathname = new URL(publicUrl, "http://localhost").pathname;
+    if (!pathname || pathname === "/") {
       return "";
     }
+    return pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  } catch {
+    return "";
   }
-  return "";
 };
 
-/** React Routerのbasename */
-export const getRouterBasename = (): string => getDataBaseUrl();
+/** @deprecated getBasePath のエイリアス */
+export const getDataBaseUrl = (): string => getBasePath();
+
+/** React Router の basename */
+export const getRouterBasename = (): string => getBasePath();
 
 /**
- * JSONデータ等の画像パスにベースパスを付与
- * /image/xxx のような相対パスを /wesoft/image/xxx に変換
+ * public 配下の静的アセット URL（/image, /data, /pdf など）
+ * 絶対 URL（http/https）はそのまま返す
  */
-export const getImageUrl = (url: string | undefined): string => {
-  if (!url) return "";
-  if (url.startsWith("http://") || url.startsWith("https://")) return url;
-  const base = getDataBaseUrl();
-  if (!base) return url;
-  return url.startsWith("/") ? `${base}${url}` : `${base}/${url}`;
+export const getAssetUrl = (path: string | undefined): string => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  const base = getBasePath();
+  return base ? `${base}${normalized}` : normalized;
+};
+
+/** 画像パス用（getAssetUrl のエイリアス） */
+export const getImageUrl = (url: string | undefined): string => getAssetUrl(url);
+
+/** public/data 配下の JSON 取得 URL */
+export const getDataUrl = (filename: string): string => {
+  const name = filename.replace(/^\/?data\//, "");
+  return getAssetUrl(`/data/${name}`);
 };

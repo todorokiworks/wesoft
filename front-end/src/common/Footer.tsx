@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../css/footer.less";
-import { getDataBaseUrl } from "../config";
+import { getAssetUrl } from "../config";
 import { Button, Modal } from "antd";
 import { Link } from "react-router-dom";
 import PrivacyNotice from "../page/PrivacyNotice";
@@ -27,7 +27,7 @@ const AppFooter: React.FC = () => {
         <div className="footer__row">
           <div className="footer__logo">
             <img
-              src={`${getDataBaseUrl()}/image/icon_logo-white.png`}
+              src={getAssetUrl("/image/icon_logo-white.png")}
               alt="ウィソフト株式会社"
             />
           </div>
@@ -45,7 +45,7 @@ const AppFooter: React.FC = () => {
           </Link>
 
           <a
-            href={`${getDataBaseUrl()}/pdf/wesoft_document.pdf`}
+            href={getAssetUrl("/pdf/wesoft_document.pdf")}
             className="footer__inquiry footer__sales-dl"
             download="wesoft_document.pdf"
           >

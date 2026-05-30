@@ -57,7 +57,14 @@ const AppHeader: React.FC = () => {
     <>
       <div className="header">
         <Link to="/" className="header__brand" onClick={closeDrawer}>
-          <div className="logo" role="img" aria-label="ウィソフト株式会社" />
+          <img
+            className="logo"
+            src={getImageUrl("/image/wesoft-home.png")}
+            alt="ウィソフト株式会社"
+            width={250}
+            height={78}
+            decoding="async"
+          />
         </Link>
 
         <nav className="header__nav-desktop" aria-label="メインメニュー">

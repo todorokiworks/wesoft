@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/home.less'
-import { getDataBaseUrl } from '../config';
+import { getImageUrl } from '../config';
 import TweenOne from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
 import { Button } from 'antd';
@@ -15,7 +15,7 @@ const SubHome3: React.FC = () => {
         animation={{ x: 0, opacity: 1, ease: 'easeOutQuad' }}
         style={{ transform: 'translateX(-100px)', opacity: 0 }}
     >
-        <img src={`${getDataBaseUrl()}/image/companybuild.png`} style={{height:'60vh'}} alt="会社概要" />
+        <img src={getImageUrl("/image/companybuild.png")} style={{height:'60vh'}} alt="会社概要" />
     </TweenOne>
     <QueueAnim
         type={'right'}
