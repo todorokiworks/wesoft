@@ -36,6 +36,9 @@ jobs:
         working-directory: front-end
         env:
           REACT_APP_BASE_PATH: /wesoft
+          REACT_APP_MICROCMS_SERVICE_DOMAIN: ${{ secrets.REACT_APP_MICROCMS_SERVICE_DOMAIN }}
+          REACT_APP_MICROCMS_API_KEY: ${{ secrets.REACT_APP_MICROCMS_API_KEY }}
+          REACT_APP_MICROCMS_ARTICLE_ENDPOINT: wesoft-column
         run: npm run build
 
       - name: Setup Pages
