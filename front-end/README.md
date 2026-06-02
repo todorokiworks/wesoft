@@ -32,10 +32,13 @@ npm run import:column
 npm run import:column -- --dry-run
 ```
 
-- カテゴリ API: `categories`（`name` フィールド）
-- 記事 API: `wesoft-column`（`title`, `content`, `category`）
-- 2 回目以降は `scripts/column-microcms-map.json` を参照して PUT 更新
-- 本文内画像: `IMPORT_SITE_ORIGIN` を設定すると `<img>` を HTML に埋め込み
+`npm run import:column` 実行時:
+
+1. `public/image/` の画像をマネジメント API でアップロード
+2. 返却 URL を `eyecatch` と本文 HTML の `<img>` に設定
+3. カテゴリ・記事を POST / PATCH
+
+API キーに **メディアのアップロード** 権限が必要です（5MB/ファイルまで）。
 
 ### プリレンダ（SEO）
 
