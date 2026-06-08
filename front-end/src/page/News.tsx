@@ -1,6 +1,6 @@
 import "../css/subpage.less";
 import React, { useEffect, useState } from "react";
-import { getDataBaseUrl, getImageUrl } from "../config";
+import { getDataUrl, getImageUrl } from "../config";
 import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
 import * as NewsEntity from "../entities/News";
@@ -16,7 +16,7 @@ const News: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`${getDataBaseUrl()}/data/news.json?t=${timestamp}`)
+    fetch(`${getDataUrl("news.json")}?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

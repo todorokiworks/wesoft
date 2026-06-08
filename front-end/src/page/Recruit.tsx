@@ -1,7 +1,7 @@
 import "../css/subpage.less";
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { getDataBaseUrl, getImageUrl } from "../config";
+import { getDataUrl, getImageUrl } from "../config";
 import PageMeta from "../common/PageMeta";
 import SkeletonView from "../common/SkeletonView";
 import SubpageTitle from "../common/SubpageTitle";
@@ -452,7 +452,7 @@ const Recruit: React.FC = () => {
 
   useEffect(() => {
     const timestamp = new Date().getTime();
-    fetch(`${getDataBaseUrl()}/data/recruit.json?t=${timestamp}`)
+    fetch(`${getDataUrl("recruit.json")}?t=${timestamp}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

@@ -164,15 +164,16 @@ body {
 }
 
 .header .logo {
+  display: block;
   width: 250px;
   height: 78px;
   cursor: pointer;
-  background: url("../../public/image/wesoft-home.png") no-repeat center / contain;
+  object-fit: contain;
+  object-position: left center;
 
   @media screen and (max-width: @max-width) {
     width: min(38vw, 120px);
     height: 38px;
-    background-position: left center;
   }
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/home.less";
-import { getDataBaseUrl } from "../config";
+import { getImageUrl } from "../config";
 import TweenOne from "rc-tween-one";
 import QueueAnim from "rc-queue-anim";
 import RcScrollOverPack from "rc-scroll-anim/lib/ScrollOverPack";
@@ -43,39 +43,39 @@ const SubHome1: React.FC = () => {
         <div className="strength-content__wrapper">
           <div className="strength-content__main">
             <div className="home-content-item-image">
-              <img src={`${getDataBaseUrl()}/image/top-strength01.png`} alt="strength_1" />
+              <img src={getImageUrl("/image/top-strength01.png")} alt="strength_1" />
             </div>
             <div className="strength-content__list">
               <div className="strength-content__list__item">
-                <div className="strength-content__list__item__num"><img src={`${getDataBaseUrl()}/image/top-strength-num01.png`} alt="strength_1" /></div>
+                <div className="strength-content__list__item__num"><img src={getImageUrl("/image/top-strength-num01.png")} alt="strength_1" /></div>
                 <div className="strength-content__list__item__title">
                   要件定義から運用まで<br />
                   一貫対応する受託・請負開発
                 </div>
                 <div className="strength-content__list__item__img">
-                  <img src={`${getDataBaseUrl()}/image/top-strength-img01.png`} alt="arrow_1" />
+                  <img src={getImageUrl("/image/top-strength-img01.png")} alt="arrow_1" />
                 </div>
               </div>
 
               <div className="strength-content__list__item">
-                <div className="strength-content__list__item__num"><img src={`${getDataBaseUrl()}/image/top-strength-num02.png`} alt="strength_1" /></div>
+                <div className="strength-content__list__item__num"><img src={getImageUrl("/image/top-strength-num02.png")} alt="strength_1" /></div>
                 <div className="strength-content__list__item__title">
                   多様な開発手法を用いた<br />
                   中小〜大規模システム開発
                 </div>
                 <div className="strength-content__list__item__img">
-                  <img src={`${getDataBaseUrl()}/image/top-strength-img02.png`} alt="arrow_1" />
+                  <img src={getImageUrl("/image/top-strength-img02.png")} alt="arrow_1" />
                 </div>
               </div>
 
               <div className="strength-content__list__item">
-                <div className="strength-content__list__item__num"><img src={`${getDataBaseUrl()}/image/top-strength-num03.png`} alt="strength_1" /></div>
+                <div className="strength-content__list__item__num"><img src={getImageUrl("/image/top-strength-num03.png")} alt="strength_1" /></div>
                 <div className="strength-content__list__item__title">
                   SIer・パートナー案件で培った<br />
                   開発品質
                 </div>
                 <div className="strength-content__list__item__img">
-                  <img src={`${getDataBaseUrl()}/image/top-strength-img03.png`} alt="arrow_1" />
+                  <img src={getImageUrl("/image/top-strength-img03.png")} alt="arrow_1" />
                 </div>
               </div>
             </div>

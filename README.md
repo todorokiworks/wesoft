@@ -8,7 +8,8 @@ cd front-end
 
 npm install
 
-# ルート（/）で動かす。npm start のみ。http://localhost:3000/
+# ルート（/）で動かす。必ず npm start を使う（http://localhost:3000/）
+# 変更後は dev サーバーを再起動すること
 
 npm start
 

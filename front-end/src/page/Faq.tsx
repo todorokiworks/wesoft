@@ -1,7 +1,7 @@
 import "../css/subpage.less";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { getDataBaseUrl } from "../config";
+import { getDataUrl } from "../config";
 import FaqStickyLink from "../common/FaqStickyLink";
 import PageMeta from "../common/PageMeta";
 import SkeletonView from "../common/SkeletonView";
@@ -77,7 +77,7 @@ const Faq: React.FC = () => {
 
   useEffect(() => {
     const t = Date.now();
-    fetch(`${getDataBaseUrl()}/data/faq.json?t=${t}`)
+    fetch(`${getDataUrl("faq.json")}?t=${t}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");

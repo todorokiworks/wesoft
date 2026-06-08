@@ -1,0 +1,8 @@
+{
+  "categories": {
+    "business": "qbpm3-q41",
+    "tech": "4vzxivs9cnsj",
+    "column": "rp6_z9mv7"
+  },
+  "_comment": "column.json の category id → microCMS categories API のコンテンツ id"
+}

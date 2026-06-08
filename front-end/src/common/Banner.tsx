@@ -1,11 +1,16 @@
 import React from "react";
 import QueueAnim from "rc-queue-anim";
-import { getDataBaseUrl } from "../config";
+import { getImageUrl } from "../config";
 import "../css/banner.less";
 
 const Banner: React.FC = () => {
   return (
-    <div className="banner-wrapper">
+    <div
+      className="banner-wrapper"
+      style={{
+        backgroundImage: `url(${getImageUrl("/image/top1.jpeg")})`,
+      }}
+    >
       <QueueAnim
         className="banner-text-wrapper-1"
         type="left"
@@ -30,7 +35,7 @@ const Banner: React.FC = () => {
           <span className="faq-wrapper-content-title">FAQ</span>
           <span className="faq-wrapper-content-description">詳しくはこちら</span>
           <div>
-            <img src={`${getDataBaseUrl()}/image/icon_arrow_white.png`} alt="arrow" />
+            <img src={getImageUrl("/image/icon_arrow_white.png")} alt="arrow" />
           </div>
         </a>
       </QueueAnim>

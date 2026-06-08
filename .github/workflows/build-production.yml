@@ -1,0 +1,45 @@
+name: Build Production Site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: front-end/package-lock.json
+
+      - name: Install dependencies
+        working-directory: front-end
+        run: npm ci
+
+      - name: Run Build
+        working-directory: front-end
+        env:
+          REACT_APP_MICROCMS_SERVICE_DOMAIN: ${{ secrets.REACT_APP_MICROCMS_SERVICE_DOMAIN }}
+          REACT_APP_MICROCMS_API_KEY: ${{ secrets.REACT_APP_MICROCMS_API_KEY }}
+        run: |
+          npm run prebuild
+          
+          npm run build:production
+          
+          npm run postbuild
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build
+          path: front-end/build/
+          retention-days: 7
