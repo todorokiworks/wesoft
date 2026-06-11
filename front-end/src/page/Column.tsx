@@ -426,7 +426,11 @@ export const ColumnArticlePage: React.FC = () => {
 
   const categoryLabel = ColumnEntity.getCategoryLabel(data, article.category);
   const { before, after } = splitArticleBody(article.body);
-  const articleMeta = articlePageMeta(article.title, article.body);
+  const articleMeta = articlePageMeta(
+    article.title,
+    article.body,
+    article.metaDescription
+  );
   const useHtmlBody = Boolean(article.bodyHtml?.trim());
 
   return (

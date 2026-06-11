@@ -27,6 +27,9 @@ type WesoftColumnRecord = {
   id: string;
   title?: string;
   content?: string;
+  /** microCMS スキーマのフィールド ID は metaDiscription（綴りはスキーマ準拠） */
+  metaDiscription?: string;
+  metaDescription?: string;
   eyecatch?: MicroCmsImage | null;
   category?: MicroCmsCategoryRef | null;
 };
@@ -82,6 +85,8 @@ function buildCategories(records: WesoftColumnRecord[]): ColumnCategory[] {
 function mapArticle(record: WesoftColumnRecord): ColumnArticle {
   const html = record.content?.trim() ?? "";
   const plain = html ? stripHtml(html) : "";
+  const metaDescription =
+    record.metaDiscription?.trim() || record.metaDescription?.trim() || "";
 
   return {
     id: record.id,
@@ -89,6 +94,7 @@ function mapArticle(record: WesoftColumnRecord): ColumnArticle {
     category: record.category?.id?.trim() ?? "",
     body: plain,
     bodyHtml: html || undefined,
+    metaDescription: metaDescription || undefined,
     thumbnail: record.eyecatch?.url?.trim() ?? "",
   };
 }

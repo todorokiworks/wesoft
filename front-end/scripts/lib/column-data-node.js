@@ -39,11 +39,15 @@ function buildCategories(records) {
 function mapArticle(record) {
   const html = record.content?.trim() ?? "";
   const plain = html ? stripHtml(html) : "";
+  // microCMS スキーマのフィールド ID は metaDiscription（綴りはスキーマ準拠）
+  const metaDescription =
+    record.metaDiscription?.trim() || record.metaDescription?.trim() || "";
   return {
     id: record.id,
     title: record.title?.trim() ?? "",
     category: record.category?.id?.trim() ?? "",
     body: plain,
+    ...(metaDescription ? { metaDescription } : {}),
     thumbnail: record.eyecatch?.url?.trim() ?? "",
   };
 }

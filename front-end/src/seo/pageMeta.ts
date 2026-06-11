@@ -74,7 +74,20 @@ export const COLUMN_CATEGORIES_META: PageMeta = {
   description: COLUMN_INDEX_META.description,
 };
 
-export function articlePageMeta(articleTitle: string, body: string): PageMeta {
+export function articlePageMeta(
+  articleTitle: string,
+  body: string,
+  metaDescription?: string
+): PageMeta {
+  // microCMS の metaDiscription があれば優先、なければ本文から生成
+  const explicit = metaDescription?.replace(/\s+/g, " ").trim();
+  if (explicit) {
+    return {
+      title: `${articleTitle}｜${COLUMN_INDEX_META.title}`,
+      description: explicit,
+    };
+  }
+
   const flat = body.replace(/\s+/g, " ").trim();
   const max = 120;
   const description =

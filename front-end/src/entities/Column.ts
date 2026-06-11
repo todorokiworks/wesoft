@@ -11,6 +11,8 @@ export interface ColumnArticle {
   body: string;
   /** microCMS の HTML 本文（詳細表示用） */
   bodyHtml?: string;
+  /** microCMS の metaDiscription（meta description 用、未設定時は本文から生成） */
+  metaDescription?: string;
   thumbnail: string;
 }
 
