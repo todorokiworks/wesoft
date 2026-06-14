@@ -1,9 +1,9 @@
 name: Build Production Site
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: front-end/package-lock.json
 
       - name: Install dependencies
@@ -32,9 +32,9 @@ jobs:
           REACT_APP_MICROCMS_API_KEY: ${{ secrets.REACT_APP_MICROCMS_API_KEY }}
         run: |
           npm run prebuild
-          
+
           npm run build:production
-          
+
           npm run postbuild
 
       - name: Upload Build Artifact
@@ -43,3 +43,43 @@ jobs:
           name: production-build
           path: front-end/build/
           retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-build
+          path: ./build
+
+      - name: Zip Build Artifact
+        run: |
+          cd ./build
+          zip -r ../production-build.zip .
+          cd ..
+
+      - name: Upload to Server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.AWS_EC2_PUBLIC_IP }}
+          username: ec2-user
+          key: ${{ secrets.AWS_NEW_KEY }}
+          passphrase: ${{ secrets.AWS_PASSPHRASE }}
+          port: 3322
+          source: production-build.zip
+          target: /home/ec2-user/
+
+      - name: Run Remote Deploy Script
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AWS_EC2_PUBLIC_IP }}
+          username: ec2-user
+          key: ${{ secrets.AWS_NEW_KEY }}
+          passphrase: ${{ secrets.AWS_PASSPHRASE }}
+          port: 3322
+          script: |
+            bash /home/ec2-user/updatehomepage.sh
