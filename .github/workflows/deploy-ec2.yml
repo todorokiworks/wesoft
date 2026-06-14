@@ -9,9 +9,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.actor == github.repository_owner
 
     steps:
+      - name: Check user permission
+        uses: lannonbr/repo-permission-check-action@2.0.0
+        with:
+          permission: "admin"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -48,7 +54,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.actor == github.repository_owner
 
     steps:
       - name: Download Build Artifact
