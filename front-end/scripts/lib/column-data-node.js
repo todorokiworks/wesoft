@@ -42,11 +42,14 @@ function mapArticle(record) {
   // microCMS スキーマのフィールド ID は metaDiscription（綴りはスキーマ準拠）
   const metaDescription =
     record.metaDiscription?.trim() || record.metaDescription?.trim() || "";
+  const publishedAt =
+    record.publishedAt?.trim() || record.createdAt?.trim() || "";
   return {
     id: record.id,
     title: record.title?.trim() ?? "",
     category: record.category?.id?.trim() ?? "",
     body: plain,
+    ...(publishedAt ? { publishedAt } : {}),
     ...(metaDescription ? { metaDescription } : {}),
     thumbnail: record.eyecatch?.url?.trim() ?? "",
   };

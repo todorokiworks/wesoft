@@ -26,6 +26,8 @@ type MicroCmsCategoryRef = {
 type WesoftColumnRecord = {
   id: string;
   title?: string;
+  publishedAt?: string;
+  createdAt?: string;
   content?: string;
   /** microCMS スキーマのフィールド ID は metaDiscription（綴りはスキーマ準拠） */
   metaDiscription?: string;
@@ -88,10 +90,14 @@ function mapArticle(record: WesoftColumnRecord): ColumnArticle {
   const metaDescription =
     record.metaDiscription?.trim() || record.metaDescription?.trim() || "";
 
+  const publishedAt =
+    record.publishedAt?.trim() || record.createdAt?.trim() || undefined;
+
   return {
     id: record.id,
     title: record.title?.trim() ?? "",
     category: record.category?.id?.trim() ?? "",
+    publishedAt,
     body: plain,
     bodyHtml: html || undefined,
     metaDescription: metaDescription || undefined,

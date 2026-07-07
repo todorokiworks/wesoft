@@ -296,7 +296,11 @@ export const ColumnListPage: React.FC = () => {
     <>
       <PageMeta {...listMeta} />
       <ul className="column-article-list">
-        {slice.map((item, i) => (
+        {slice.map((item, i) => {
+          const publishedDateLabel = ColumnEntity.formatArticleDate(
+            item.publishedAt
+          );
+          return (
           <li
             key={sliceStart + i}
             className="column-article-card"
@@ -313,9 +317,19 @@ export const ColumnListPage: React.FC = () => {
                   </span>
                 </h2>
               </div>
-              <span className="column-article-card__category">
-                {ColumnEntity.getCategoryLabel(data, item.category)}
-              </span>
+              <div className="column-article-card__meta">
+                {publishedDateLabel ? (
+                  <time
+                    className="column-article-card__date"
+                    dateTime={item.publishedAt}
+                  >
+                    {publishedDateLabel}
+                  </time>
+                ) : null}
+                <span className="column-article-card__category">
+                  {ColumnEntity.getCategoryLabel(data, item.category)}
+                </span>
+              </div>
               <div className="column-article-card__main">
                 <div className="column-article-card__content-row">
                   <div className="column-article-card__thumb">
@@ -341,7 +355,8 @@ export const ColumnListPage: React.FC = () => {
               </div>
             </Link>
           </li>
-        ))}
+          );
+        })}
       </ul>
       {total > PAGE_SIZE ? (
         <div className="column-pagination">
@@ -425,6 +440,7 @@ export const ColumnArticlePage: React.FC = () => {
   }
 
   const categoryLabel = ColumnEntity.getCategoryLabel(data, article.category);
+  const publishedDateLabel = ColumnEntity.formatArticleDate(article.publishedAt);
   const { before, after } = splitArticleBody(article.body);
   const articleMeta = articlePageMeta(
     article.title,
@@ -448,7 +464,17 @@ export const ColumnArticlePage: React.FC = () => {
             </span>
           </h1>
         </header>
-        <p className="column-article-detail__category-pill">{categoryLabel}</p>
+        <div className="column-article-detail__meta">
+          {publishedDateLabel ? (
+            <time
+              className="column-article-detail__date"
+              dateTime={article.publishedAt}
+            >
+              {publishedDateLabel}
+            </time>
+          ) : null}
+          <p className="column-article-detail__category-pill">{categoryLabel}</p>
+        </div>
         <div className="column-article-detail__content">
           {useHtmlBody ? (
             <>
