@@ -120,19 +120,12 @@ function columnListLink(
   return { to: { pathname: "/column", search } };
 }
 
-/**
- * 本文を空行境界でパラグラフ単位に分割する。
- * 2ブロック以上ある場合は先頭だけを before（画像より前）、残りを after（画像より後）にし、詳細ページで中央に画像を挟めるようにする。
- */
-function splitArticleBody(body: string): { before: string[]; after: string[] } {
-  const parts = body
+/** 本文を空行境界でパラグラフ単位に分割する（HTML本文がない場合の段落表示用）。 */
+function splitArticleBody(body: string): string[] {
+  return body
     .split(/\n\s*\n/)
     .map((p) => p.trim())
     .filter(Boolean);
-  if (parts.length <= 1) {
-    return { before: parts, after: [] };
-  }
-  return { before: [parts[0]], after: parts.slice(1) };
 }
 
 /**
@@ -411,7 +404,7 @@ export const ColumnCategoriesPage: React.FC = () => {
 
 /**
  * /column/:articleId。URL パラメータの articleId で記事を検索し、見つからなければ案内のみ表示。
- * 見つかった場合は splitArticleBody で前後に分け、サムネ画像を段落の間に挿入して読みやすく並べる。PageMeta は記事単位。
+ * 見つかった場合は splitArticleBody で段落化する。HTML本文がある記事はHTMLを優先し、ない場合は画像を先頭表示して崩れを避ける。PageMeta は記事単位。
  */
 export const ColumnArticlePage: React.FC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -430,8 +423,9 @@ export const ColumnArticlePage: React.FC = () => {
   }
 
   const categoryLabel = ColumnEntity.getCategoryLabel(data, article.category);
-  const { before, after } = splitArticleBody(article.body);
+  const paragraphs = splitArticleBody(article.body);
   const articleMeta = articlePageMeta(article.title, article.body);
+  const useHtmlBody = Boolean(article.bodyHtml?.trim());
 
   return (
     <article className="column-article-detail">
@@ -450,25 +444,40 @@ export const ColumnArticlePage: React.FC = () => {
         </header>
         <p className="column-article-detail__category-pill">{categoryLabel}</p>
         <div className="column-article-detail__content">
-          {before.map((block, i) => (
-            <p key={`col-b-${i}`} className="column-article-detail__para">
-              {block}
-            </p>
-          ))}
-          {article.thumbnail ? (
-            <figure className="column-article-detail__figure">
-              <img
-                src={getImageUrl(article.thumbnail)}
-                alt=""
-                className="column-article-detail__figure-img"
+          {useHtmlBody ? (
+            <>
+              {article.thumbnail ? (
+                <figure className="column-article-detail__figure">
+                  <img
+                    src={getImageUrl(article.thumbnail)}
+                    alt=""
+                    className="column-article-detail__figure-img"
+                  />
+                </figure>
+              ) : null}
+              <div
+                className="column-article-detail__html"
+                dangerouslySetInnerHTML={{ __html: article.bodyHtml ?? "" }}
               />
-            </figure>
-          ) : null}
-          {after.map((block, i) => (
-            <p key={`col-a-${i}`} className="column-article-detail__para">
-              {block}
-            </p>
-          ))}
+            </>
+          ) : (
+            <>
+              {article.thumbnail ? (
+                <figure className="column-article-detail__figure">
+                  <img
+                    src={getImageUrl(article.thumbnail)}
+                    alt=""
+                    className="column-article-detail__figure-img"
+                  />
+                </figure>
+              ) : null}
+              {paragraphs.map((block, i) => (
+                <p key={`col-p-${i}`} className="column-article-detail__para">
+                  {block}
+                </p>
+              ))}
+            </>
+          )}
         </div>
         <p className="column-article-detail__back">
           <Link to="/column">一覧へ戻る</Link>
