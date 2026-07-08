@@ -49,6 +49,7 @@ function mapArticle(record) {
     title: record.title?.trim() ?? "",
     category: record.category?.id?.trim() ?? "",
     body: plain,
+    ...(html ? { bodyHtml: html } : {}),
     ...(publishedAt ? { publishedAt } : {}),
     ...(metaDescription ? { metaDescription } : {}),
     thumbnail: record.eyecatch?.url?.trim() ?? "",

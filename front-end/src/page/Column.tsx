@@ -115,19 +115,12 @@ function columnListLink(
   return { to: { pathname: "/column", search } };
 }
 
-/**
- * 本文を空行境界でパラグラフ単位に分割する。
- * 2ブロック以上ある場合は先頭だけを before（画像より前）、残りを after（画像より後）にし、詳細ページで中央に画像を挟めるようにする。
- */
-function splitArticleBody(body: string): { before: string[]; after: string[] } {
-  const parts = body
+/** 本文を空行境界でパラグラフ単位に分割する（HTML本文がない場合の段落表示用）。 */
+function splitArticleBody(body: string): string[] {
+  return body
     .split(/\n\s*\n/)
     .map((p) => p.trim())
     .filter(Boolean);
-  if (parts.length <= 1) {
-    return { before: parts, after: [] };
-  }
-  return { before: [parts[0]], after: parts.slice(1) };
 }
 
 /**
@@ -301,60 +294,60 @@ export const ColumnListPage: React.FC = () => {
             item.publishedAt
           );
           return (
-          <li
-            key={sliceStart + i}
-            className="column-article-card"
-          >
-            <Link to={`/column/${item.id}`} className="column-article-card__link">
-              <div className="column-article-card__header">
-                <h2 className="column-article-card__title">
-                  <span
-                    className="column-article-card__title-accent"
-                    aria-hidden="true"
-                  />
-                  <span className="column-article-card__title-text">
-                    {item.title}
-                  </span>
-                </h2>
-              </div>
-              <div className="column-article-card__meta">
-                {publishedDateLabel ? (
-                  <time
-                    className="column-article-card__date"
-                    dateTime={item.publishedAt}
-                  >
-                    {publishedDateLabel}
-                  </time>
-                ) : null}
-                <span className="column-article-card__category">
-                  {ColumnEntity.getCategoryLabel(data, item.category)}
-                </span>
-              </div>
-              <div className="column-article-card__main">
-                <div className="column-article-card__content-row">
-                  <div className="column-article-card__thumb">
-                    {item.thumbnail ? (
-                      <img
-                        src={getImageUrl(item.thumbnail)}
-                        alt=""
-                        className="column-article-card__img"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div
-                        className="column-article-card__img-placeholder"
-                        aria-hidden
-                      />
-                    )}
-                  </div>
-                  <p className="column-article-card__excerpt">
-                    {excerptText(item.body, 160)}
-                  </p>
+            <li
+              key={sliceStart + i}
+              className="column-article-card"
+            >
+              <Link to={`/column/${item.id}`} className="column-article-card__link">
+                <div className="column-article-card__header">
+                  <h2 className="column-article-card__title">
+                    <span
+                      className="column-article-card__title-accent"
+                      aria-hidden="true"
+                    />
+                    <span className="column-article-card__title-text">
+                      {item.title}
+                    </span>
+                  </h2>
                 </div>
-                <span className="column-article-card__cta">もっと見る</span>
-              </div>
-            </Link>
-          </li>
+                <div className="column-article-card__meta">
+                  {publishedDateLabel ? (
+                    <time
+                      className="column-article-card__date"
+                      dateTime={item.publishedAt}
+                    >
+                      {publishedDateLabel}
+                    </time>
+                  ) : null}
+                  <span className="column-article-card__category">
+                    {ColumnEntity.getCategoryLabel(data, item.category)}
+                  </span>
+                </div>
+                <div className="column-article-card__main">
+                  <div className="column-article-card__content-row">
+                    <div className="column-article-card__thumb">
+                      {item.thumbnail ? (
+                        <img
+                          src={getImageUrl(item.thumbnail)}
+                          alt=""
+                          className="column-article-card__img"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div
+                          className="column-article-card__img-placeholder"
+                          aria-hidden
+                        />
+                      )}
+                    </div>
+                    <p className="column-article-card__excerpt">
+                      {excerptText(item.body, 160)}
+                    </p>
+                  </div>
+                  <span className="column-article-card__cta">もっと見る</span>
+                </div>
+              </Link>
+            </li>
           );
         })}
       </ul>
@@ -421,7 +414,7 @@ export const ColumnCategoriesPage: React.FC = () => {
 
 /**
  * /column/:articleId。URL パラメータの articleId で記事を検索し、見つからなければ案内のみ表示。
- * 見つかった場合は splitArticleBody で前後に分け、サムネ画像を段落の間に挿入して読みやすく並べる。PageMeta は記事単位。
+ * 見つかった場合は splitArticleBody で段落化する。HTML本文がない記事はレイアウト差を避けるため、サムネ画像を先頭に表示する。PageMeta は記事単位。
  */
 export const ColumnArticlePage: React.FC = () => {
   const { articleId } = useParams<{ articleId: string }>();
@@ -441,7 +434,7 @@ export const ColumnArticlePage: React.FC = () => {
 
   const categoryLabel = ColumnEntity.getCategoryLabel(data, article.category);
   const publishedDateLabel = ColumnEntity.formatArticleDate(article.publishedAt);
-  const { before, after } = splitArticleBody(article.body);
+  const paragraphs = splitArticleBody(article.body);
   const articleMeta = articlePageMeta(
     article.title,
     article.body,
@@ -494,11 +487,6 @@ export const ColumnArticlePage: React.FC = () => {
             </>
           ) : (
             <>
-              {before.map((block, i) => (
-                <p key={`col-b-${i}`} className="column-article-detail__para">
-                  {block}
-                </p>
-              ))}
               {article.thumbnail ? (
                 <figure className="column-article-detail__figure">
                   <img
@@ -508,8 +496,8 @@ export const ColumnArticlePage: React.FC = () => {
                   />
                 </figure>
               ) : null}
-              {after.map((block, i) => (
-                <p key={`col-a-${i}`} className="column-article-detail__para">
+              {paragraphs.map((block, i) => (
+                <p key={`col-p-${i}`} className="column-article-detail__para">
                   {block}
                 </p>
               ))}
