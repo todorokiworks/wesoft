@@ -8,6 +8,7 @@ export interface ColumnArticle {
   title: string;
   category: string;
   body: string;
+  bodyHtml?: string;
   thumbnail: string;
 }
 
